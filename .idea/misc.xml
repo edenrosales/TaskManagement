@@ -3,12 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/TaskManagement/app/src/main/res/drawable/ic_launcher_background.xml" value="0.196" />
+        <entry key="..\:/TaskManagement/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/eden/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_main.xml" value="0.40217391304347827" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.34864807128906256" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
