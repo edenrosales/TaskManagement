@@ -9,4 +9,5 @@ package com.example.taskmanagement;
 //depending on how *we* handle notifications, we might need this
 //If we only show a notification when a task is near its date then we dont need it, imo
 public class theNotification {
+    //be able to do custom notifications like.. a day before, week before, x weeks before
 }
