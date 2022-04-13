@@ -8,7 +8,7 @@ public class TaskList {
     LinkedList<Task> TodoListTasks = new LinkedList<>();
     LinkedList<Task> CalendarTasks = new LinkedList<>();
 
-
+    
     //view determines the LinkedList this function searches
     //1 is Tasks
     //2 is TodoListTasks
@@ -26,7 +26,6 @@ public class TaskList {
     }
     //I think that this function returns the LinkedList that cooresponds to the tasks that we want? This funciton might need to sort, not sure yet
     public void getTasks(){
-
     }
     //this tasks filters, this means we need a sort for this
     public void filterTasks(){
