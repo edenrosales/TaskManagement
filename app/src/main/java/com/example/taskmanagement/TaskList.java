@@ -8,7 +8,7 @@ public class TaskList {
     LinkedList<Task> TodoListTasks = new LinkedList<>();
     LinkedList<Task> CalendarTasks = new LinkedList<>();
 
-
+    
     //view determines the LinkedList this function searches
     //1 is Tasks
     //2 is TodoListTasks
