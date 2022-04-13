@@ -1,6 +1,6 @@
 package com.example.taskmanagement;
 
-public class Task {
+public class Task {//will add a description variable later.
     String name;
     Tag associated_tag;
     int start_time;
