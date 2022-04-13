@@ -53,7 +53,9 @@ public class TaskList {
         switch(setting){
             case 0://this is default
                 
-            case 1:
+            case 1://this is alphabetical
+
+            case 2://this is by tag
         }
         return null;
     }
