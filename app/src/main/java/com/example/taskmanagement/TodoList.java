@@ -5,6 +5,12 @@ public class TodoList{
     //method will return a task list given a selected view ToDo list
     //choice 1 will be organized by date
     //choice 2 will be organized by 
+    for(int i = 0; i < Tasks.size(); i++)
+        if(Tasks.get(i).end_time <= current_date)
+            Tasks.remove(i);
+    
+    
+    
     switch(choice){
         case 1:
             //case 1 will be by date
