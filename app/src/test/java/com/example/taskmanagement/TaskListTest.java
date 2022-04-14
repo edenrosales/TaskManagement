@@ -14,14 +14,6 @@ class TaskListTest {
         Task resultTask = new Task();
         resultTask = getTask("Walk my dog", 2);
         assertEquals("Wash Dishes",List1.getTask("Wash Dishes",2));
-        //assertEquals("Make sure the dishes are washed",newTask.getDescription());
-        //assertEquals(null,newTask.getTag());
-        //assertEquals(0,newTask.getStart());
-        //assertEquals(10,newTask.getEnd());
-        //assertEquals(10,newTask.getDue());
-        //assertEquals(true,newTask.getNotify());
-
-
         system.out.println("Name of Task: " + resultTask.name);
         system.out.println("Description: " + resultTask.description);
         system.out.println("Start Time: " + resultTask.start_time);

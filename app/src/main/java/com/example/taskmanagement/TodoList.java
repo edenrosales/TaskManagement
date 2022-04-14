@@ -9,7 +9,7 @@ public class TodoList{
         if(Tasks.get(i).end_time <= current_date)
             Tasks.remove(i);
     
-    
+
     switch(choice){
         case 1:
             //case 1 will be by date
