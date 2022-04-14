@@ -1,5 +1,7 @@
 package com.example.taskmanagement;
-
+//junit testing imports for task list
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.LinkedList;
 
@@ -52,7 +54,20 @@ public class TaskList {
                 return T.get(i);
         return null;
     }
-
+    //Test for getTask(String name,int view)
+    @Test
+    public void testgetTask(){
+        Task Task1 = new Task("Wash Dishes","Make sure the dishes are washed",null,0,10,0,false);
+        Task Task2 = new Task("Walk my dog", "Walk Finnley in the morning",null,4,5,0, false);
+        Task Task3 = new Task("Work on Homework Assignment 1", "COMP 380 Assignment",null,6,7,0, false);
+        TaskList List1 = new TaskList();
+        List1.TodoListTasks.add(Task1);
+        List1.TodoListTasks.add(Task2);
+        List1.TodoListTasks.add(Task3);
+        Task resultTask = new Task();
+        resultTask = getTask("Walk my dog", 2);
+        assertEquals("Wash Dishes",List1.getTask("Wash Dishes",2));
+    }
     
     //I think that this function returns the LinkedList that cooresponds to the tasks that we want? This funciton might need to sort, not sure yet
     //I think that this function returns all the tasks according to the Tag that is input
