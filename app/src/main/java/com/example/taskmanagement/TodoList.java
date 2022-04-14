@@ -10,7 +10,6 @@ public class TodoList{
             Tasks.remove(i);
     
     
-    
     switch(choice){
         case 1:
             //case 1 will be by date
