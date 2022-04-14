@@ -3,7 +3,7 @@ package com.example.taskmanagement;
 
 import java.util.LinkedList;
 
-import javax.lang.model.util.ElementScanner14;
+//import javax.lang.model.util.ElementScanner14;
 
 public class TaskList {
     LinkedList<Task> Tasks = new LinkedList<>();
@@ -16,9 +16,10 @@ public class TaskList {
     //2 is TodoListTasks
     //3 is CalendarTasks
 
+
     //Might implement a trie tree later to make this more in depth.
     public Task getTask(String name, int view){
-        /*switch(view) {
+     /*   switch(view) {
             case 1:
                 for(int i =0; i<Tasks.size();i++){
                     if(Tasks.get(i).name.equals(name))
@@ -36,35 +37,23 @@ public class TaskList {
                 }
         }
         return null;
-        */
+    */
         LinkedList<Task> T = new LinkedList<>();
         switch(view){
             case 1:
-                T = Tasks;
+                T = this.Tasks;
                 break;
             case 2: 
-                T = TodoListTasks;
+                T = this.TodoListTasks;
+                break;
             case 3:
-                T = CalendarTasks;
+                T = this.CalendarTasks;
+                break;
         }
         for(int i = 0; i < T.size(); i++)
             if(T.get(i).name.equals(name))
                 return T.get(i);
         return null;
-    }
-    //Test for getTask(String name,int view)
-    @Test
-    public void testgetTask(){
-        Task Task1 = new Task("Wash Dishes","Make sure the dishes are washed",null,0,10,0,false);
-        Task Task2 = new Task("Walk my dog", "Walk Finnley in the morning",null,4,5,0, false);
-        Task Task3 = new Task("Work on Homework Assignment 1", "COMP 380 Assignment",null,6,7,0, false);
-        TaskList List1 = new TaskList();
-        List1.TodoListTasks.add(Task1);
-        List1.TodoListTasks.add(Task2);
-        List1.TodoListTasks.add(Task3);
-        Task resultTask = new Task();
-        resultTask = getTask("Walk my dog", 2);
-        assertEquals("Wash Dishes",List1.getTask("Wash Dishes",2));
     }
     
     //I think that this function returns the LinkedList that cooresponds to the tasks that we want? This funciton might need to sort, not sure yet
@@ -111,8 +100,14 @@ public class TaskList {
     //this function searches for a task and returns it
     //Might implement a trie tree later to make this more in depth, but otherwise its the same as the getTask function
     //in the future, what will happen is that it will return a LinkedList
-    public Task searchTasks(String name, int view){
-        return getTask(name, view);
+    public LinkedList<Task> searchTasks(String name, int view){
+        LinkedList<Task> results = new LinkedList<>();
+        //search will return a set of maximum 20 results to display... this can be all subject to change
+        //search feature is not implemented fully
+        for(int i = 0; i < 20; i++)
+            results.add(getTask(name, view));
+        return results;
+        //return getTask(name, view);
 
     }
     //i have no idea bro
