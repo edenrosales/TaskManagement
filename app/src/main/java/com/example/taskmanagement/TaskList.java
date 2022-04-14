@@ -50,12 +50,27 @@ public class TaskList {
     //by alphabetical order or something idk.
     //filter by current parameters: alphabetial, tag,
     public LinkedList<Task> filterTasks(int setting){
+        LinkedList<Task> result = new LinkedList<>();
         switch(setting){
             case 0://this is default
-                
+                return null;
             case 1://this is alphabetical
-
+            {
+                for(int i =0; i<Tasks.size();i++){
+                    String smallest= Tasks.get(i).name;
+                    Task smallestTask = Tasks.get(i);
+                    for(int j =0; j<Tasks.size();j++){
+                        if(smallest.compareTo(Tasks.get(j).name)>0) {
+                            smallest = Tasks.get(j).name;
+                            smallestTask= Tasks.get(j);
+                        }
+                    }
+                    result.add(smallestTask);
+                }
+                return result;
+            }
             case 2://this is by tag
+                return null;
         }
         return null;
     }
