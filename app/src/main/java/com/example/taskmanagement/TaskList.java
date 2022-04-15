@@ -1,6 +1,8 @@
 package com.example.taskmanagement;
 
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 //import javax.lang.model.util.ElementScanner14;
@@ -92,7 +94,62 @@ public class TaskList {
                 return result;
             }
             case 2://this is by tag
-                return null;
+                //first we will get all the tags that exist
+                //then they will all get sorted in alphabetical order
+                //finally, they will be added in order by tag
+
+                //we use a hashset to make this O(n)
+                HashSet<Tag> tags = new HashSet<>();
+                //this is getting all the tags
+                for(int i =0; i<Tasks.size();i++){
+                    if(!tags.contains(Tasks.get(i).associated_tag)){
+                        tags.add(Tasks.get(i).associated_tag);
+                    }
+                }
+                LinkedList<Tag> tempTagList = new LinkedList<>(tags);
+                LinkedList<Tag> tagList = new LinkedList<>();
+                for(int i=0; i<tempTagList.size();i++){
+                    String smallestString = tempTagList.get(i).getName();
+                    Tag smallestTag = tempTagList.get(i);
+                    for(int j =0; j<tempTagList.size();j++){
+                        if(tempTagList.get(i).getName().compareTo(smallestString) <0){
+                            smallestString = tempTagList.get(i).getName();
+                            smallestTag = tempTagList.get(i);
+                        }
+                    }
+                    tagList.add(smallestTag);
+                }
+                //now we have a sorted list of Tags in the tagList LinkedList
+
+                //we need to sort the tasks by the Tag they are associated with
+                //I think that we also need to remember to NOT use the original Task LinkedList because we would need to delete the entries from the LinkedList
+                //and we are not allowed to do that.
+                LinkedList<Task> temp = Tasks;
+                boolean taskFound = true;
+                for(int i =0;i<tagList.size();i++){
+                    while(taskFound){
+                        taskFound = false;
+                        String smallestString = null;
+                        Task smallestTask = null;
+                        for(int j=0;j<Tasks.size();j++){
+                            if(temp.get(j).associated_tag.equals(tagList.get(i))){
+                                taskFound =true;
+                                if(smallestString == null){
+                                    smallestString = temp.get(j).name;
+                                    smallestTask = temp.get(j);
+                                }
+                                if(smallestString.compareTo(temp.get(j).getName()) > 0){
+                                    smallestString = temp.get(j).name;
+                                    smallestTask = temp.get(j);
+                                }
+
+                            }
+                        }
+                        temp.remove(smallestTask);
+                        result.add(smallestTask);
+                    }
+                }
+                return temp;
         }
         return null;
     }
