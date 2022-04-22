@@ -21,25 +21,6 @@ public class TaskList {
 
     //Might implement a trie tree later to make this more in depth.
     public Task getTask(String name, int view){
-     /*   switch(view) {
-            case 1:
-                for(int i =0; i<Tasks.size();i++){
-                    if(Tasks.get(i).name.equals(name))
-                        return Tasks.get(i);
-                }
-            case 2:
-                for(int i =0; i<TodoListTasks.size();i++){
-                    if(TodoListTasks.get(i).name.equals(name))
-                        return TodoListTasks.get(i);
-                }
-            case 3:
-                for(int i =0; i<CalendarTasks.size();i++){
-                    if(CalendarTasks.get(i).name.equals(name))
-                        return CalendarTasks.get(i);
-                }
-        }
-        return null;
-    */
         LinkedList<Task> T = new LinkedList<>();
         switch(view){
             case 1:
