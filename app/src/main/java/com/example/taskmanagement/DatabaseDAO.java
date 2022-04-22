@@ -17,8 +17,10 @@ import androidx.room.Update;
 
 @Dao
 public interface DatabaseDAO {
+
     @Query("SELECT * FROM task") //Reads Tasks
     List<Task> getAll();
+
 
     @Insert
     void insert(Task task);
