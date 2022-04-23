@@ -4,18 +4,235 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#202020"
+    android:backgroundTint="#46353535"
+    android:backgroundTintMode="screen"
     tools:context=".AddTaskView">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="135dp"
-        android:layout_marginTop="319dp"
-        android:layout_marginEnd="135dp"
-        android:layout_marginBottom="320dp"
-        android:text="Create New Task View"
+        android:id="@+id/textView2"
+        android:layout_width="260dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="74.5dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/fredokaone_regular"
+        android:text="Create New Task"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="415dp"
+        android:layout_height="424dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:backgroundTint="#0027FD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        app:layout_constraintVertical_bias="0.501"><![CDATA[
+
+        @drawable/view_and_add_task_background" />
+
+
+
+        ]]>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleX="1"
+            android:scaleY="1"
+            app:srcCompat="@drawable/view_and_add_task_background" />
+
+        <ImageView
+            android:id="@+id/name_for_add_task_view"
+            android:layout_width="378dp"
+            android:layout_height="67dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/text_box_1" />
+
+        <TextView
+            android:id="@+id/name_for_add_task_view_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/fredokaone_regular"
+            android:text="Name: "
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/start_date_and_due_date_for_add_task_view"
+            android:layout_width="198dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/text_box_1" />
+
+        <TextView
+            android:id="@+id/name_for_add_task_view_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/fredokaone_regular"
+            android:text="Start Time: "
+            android:textColor="@android:color/holo_purple"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/start_date_and_due_date_for_add_task_view2"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/text_box_1" />
+
+        <TextView
+            android:id="@+id/name_for_add_task_view_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/fredokaone_regular"
+            android:text="End Time: "
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/tag_for_add_task_view"
+            android:layout_width="155dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="140dp"
+            app:srcCompat="@drawable/text_box_1" />
+
+        <TextView
+            android:id="@+id/name_for_add_task_view_text4"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/fredokaone_regular"
+            android:text="Tag:"
+            android:textColor="@color/teal_200"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/tag_for_add_task_view2"
+            android:layout_width="155dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="140dp"
+            app:srcCompat="@drawable/text_box_1" />
+
+        <TextView
+            android:id="@+id/name_for_add_task_view_text5"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="248dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/fredokaone_regular"
+            android:text="Due Date:"
+            android:textColor="?attr/colorError"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/notification_bell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="193dp"
+            android:layout_marginTop="140dp"
+            app:srcCompat="@android:drawable/ic_popup_reminder" />
+
+        <ImageView
+            android:id="@+id/description_box_for_add_task_view"
+            android:layout_width="380dp"
+            android:layout_height="200dp"
+            android:scaleY="2.5"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="198dp"
+            app:srcCompat="@drawable/text_box_1" />
+
+        <TextView
+            android:id="@+id/name_for_add_task_view_text6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="210dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/fredokaone_regular"
+            android:text="Description:"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
