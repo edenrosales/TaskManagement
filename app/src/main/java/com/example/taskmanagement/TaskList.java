@@ -44,7 +44,7 @@ public class TaskList {
     
     //I think that this function returns the LinkedList that cooresponds to the tasks that we want? This funciton might need to sort, not sure yet
     //I think that this function returns all the tasks according to the Tag that is input
-    public LinkedList<Task> getTasks(Tag type){
+    public LinkedList<Task> getTasksByTag(Tag type){
         LinkedList<Task> results=  new LinkedList<>();
         for(int i =0; i<Tasks.size();i++){
             if(Tasks.get(i).associated_tag.name.equals(type.name)){
@@ -55,7 +55,7 @@ public class TaskList {
     }
 
 
-    public void getTasks(){
+    public void getTasksByTag(){
 
     }
     //this tasks filters, this means we need a sort for this
