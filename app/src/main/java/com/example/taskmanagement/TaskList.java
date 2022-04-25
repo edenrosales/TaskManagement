@@ -1,6 +1,10 @@
 package com.example.taskmanagement;
 
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -18,6 +22,15 @@ public class TaskList {
     //2 is TodoListTasks
     //3 is CalendarTasks
 
+    public LinkedList<Task> getTaskList(){
+        return Tasks;
+    }
+    public LinkedList<Task> getTodoListTasks(){
+        return TodoListTasks;
+    }
+    public LinkedList<Task> getCalendarTasks(){
+        return CalendarTasks;
+    }
 
     //Might implement a trie tree later to make this more in depth.
     public Task getTask(String name, int view){
@@ -50,10 +63,13 @@ public class TaskList {
         }
         return results;
     }
+
     //this tasks filters, this means we need a sort for this
     //by alphabetical order or something idk.
     //filter by current parameters: alphabetial, tag,
-    public LinkedList<Task> filterTasks(int setting){
+
+    //i changed this to static so that it might work better with the other classes that we have made so far
+    public static LinkedList<Task> sortTasks(int setting, LinkedList<Task> list){
         LinkedList<Task> result = new LinkedList<>();
         switch(setting){
             case 0://this is default
@@ -61,20 +77,21 @@ public class TaskList {
                 return null;
             case 1://this is alphabetical
             {
-                for(int i =0; i<Tasks.size();i++){
-                    String smallest= Tasks.get(i).name;
-                    Task smallestTask = Tasks.get(i);
-                    for(int j =0; j<Tasks.size();j++){
-                        if(smallest.compareTo(Tasks.get(j).name)>0) {
-                            smallest = Tasks.get(j).name;
-                            smallestTask= Tasks.get(j);
+                for(int i =0; i<list.size();i++){
+                    String smallest= list.get(i).name;
+                    Task smallestTask = list.get(i);
+                    for(int j =0; j<list.size();j++){
+                        if(smallest.compareTo(list.get(j).name)>0) {
+                            smallest = list.get(j).name;
+                            smallestTask= list.get(j);
                         }
                     }
                     result.add(smallestTask);
                 }
                 return result;
             }
-            case 2://this is by tag
+            case 2: {
+                //this is by tag
                 //first we will get all the tags that exist
                 //then they will all get sorted in alphabetical order
                 //finally, they will be added in order by tag
@@ -82,18 +99,18 @@ public class TaskList {
                 //we use a hashset to make this O(n)
                 HashSet<Tag> tags = new HashSet<>();
                 //this is getting all the tags
-                for(int i =0; i<Tasks.size();i++){
-                    if(!tags.contains(Tasks.get(i).associated_tag)){
-                        tags.add(Tasks.get(i).associated_tag);
+                for (int i = 0; i < list.size(); i++) {
+                    if (!tags.contains(list.get(i).associated_tag)) {
+                        tags.add(list.get(i).associated_tag);
                     }
                 }
                 LinkedList<Tag> tempTagList = new LinkedList<>(tags);
                 LinkedList<Tag> tagList = new LinkedList<>();
-                for(int i=0; i<tempTagList.size();i++){
+                for (int i = 0; i < tempTagList.size(); i++) {
                     String smallestString = tempTagList.get(i).getName();
                     Tag smallestTag = tempTagList.get(i);
-                    for(int j =0; j<tempTagList.size();j++){
-                        if(tempTagList.get(i).getName().compareTo(smallestString) <0){
+                    for (int j = 0; j < tempTagList.size(); j++) {
+                        if (tempTagList.get(i).getName().compareTo(smallestString) < 0) {
                             smallestString = tempTagList.get(i).getName();
                             smallestTag = tempTagList.get(i);
                         }
@@ -105,21 +122,21 @@ public class TaskList {
                 //we need to sort the tasks by the Tag they are associated with
                 //I think that we also need to remember to NOT use the original Task LinkedList because we would need to delete the entries from the LinkedList
                 //and we are not allowed to do that.
-                LinkedList<Task> temp = Tasks;
+                LinkedList<Task> temp = list;
                 boolean taskFound = true;
-                for(int i =0;i<tagList.size();i++){
-                    while(taskFound){
+                for (int i = 0; i < tagList.size(); i++) {
+                    while (taskFound) {
                         taskFound = false;
                         String smallestString = null;
                         Task smallestTask = null;
-                        for(int j=0;j<Tasks.size();j++){
-                            if(temp.get(j).associated_tag.equals(tagList.get(i))){
-                                taskFound =true;
-                                if(smallestString == null){
+                        for (int j = 0; j < list.size(); j++) {
+                            if (temp.get(j).associated_tag.equals(tagList.get(i))) {
+                                taskFound = true;
+                                if (smallestString == null) {
                                     smallestString = temp.get(j).name;
                                     smallestTask = temp.get(j);
                                 }
-                                if(smallestString.compareTo(temp.get(j).getName()) > 0){
+                                if (smallestString.compareTo(temp.get(j).getName()) > 0) {
                                     smallestString = temp.get(j).name;
                                     smallestTask = temp.get(j);
                                 }
@@ -130,11 +147,32 @@ public class TaskList {
                         result.add(smallestTask);
                     }
                 }
-                return temp;
+                return result;
+            }
         }
         return null;
     }
-
+    //this will get rid of all the Tasks that are not for the view/date in a given linkedlist
+    //0 will be for calendar view
+    //1 will be for the todolist view
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static LinkedList<Task> filterTasksByDate(LinkedList<Task> input, LocalDate date, int setting){
+        if(setting == 0){
+            for(int i =0; i<input.size();i++){
+                if(input.get(i).due_date.getMonthValue() !=  date.getMonthValue()){
+                    input.remove(i);
+                }
+            }
+        }
+        else if(setting ==1){
+            for(int i =0; i<input.size();i++){
+                if(input.get(i).due_date.equals(date)){
+                    input.remove(i);
+                }
+            }
+        }
+        return input;
+    }
     //this function searches for a task and returns it
     //Might implement a trie tree later to make this more in depth, but otherwise its the same as the getTask function
     //in the future, what will happen is that it will return a LinkedList
@@ -152,7 +190,17 @@ public class TaskList {
     public void getSelected(){
 
     }
-
+    //this will return a list of tags for the user to use in displaying 
+    public static LinkedList<Tag> parseTags(LinkedList<Task> input){
+        LinkedList<Tag> output = new LinkedList<>();
+        Tag current = null;
+        for(int i =0; i<input.size();i++){
+            if(!current.equals(input.get(i).getTag())){
+                output.add(input.get(i).getTag());
+            }
+        }
+        return output;
+    }
 
 
 }

@@ -1,8 +1,12 @@
 package com.example.taskmanagement;
 
 
-import java.io.Serializable;
+import android.os.Build;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -27,17 +31,18 @@ public class Task implements Serializable {//will add a description variable lat
     //I don't know if storing these will be needed, not sure...
     int start_time;
     int end_time;
-    int due_date;
+    LocalDate due_date;
     Boolean notify_me;
 
-    Task(String name,String description,Tag associated_tag,int start_time,int end_time,int due_date, Boolean notify_me){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    Task(String name, String description, Tag associated_tag, int start_time, int end_time, int day, int month, int year, Boolean notify_me){
         this.name = name;
         this.description= description;
         this.associated_tag = associated_tag;
-        this.end_time = end_time;
-        this.due_date = due_date;
+        this.end_time = end_time;//minutes from 0:00
+        this.due_date = LocalDate.of(year,month,day);
         this.notify_me = notify_me;
-        this.start_time = start_time;
+        this.start_time = start_time; //in minutes from 0:00
     }
     public void createTask(){
         //this method should invoke the setter method but it should be made so that the user only needs to put in certain parts of the function
@@ -46,7 +51,8 @@ public class Task implements Serializable {//will add a description variable lat
         //-Eden
     }
     //Might be changed since editing a Task will have to do with a Database method
-    public void editTask(Task task_name,String name,String description,Tag associated_tag,int start_time,int end_time,int due_date, Boolean notify_me){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void editTask(Task task_name, String name, String description, Tag associated_tag, int start_time, int end_time, int day, int month, int year, Boolean notify_me){
         if(name!=null)
         task_name.setName(name);
         if(description!=null)
@@ -57,8 +63,8 @@ public class Task implements Serializable {//will add a description variable lat
         task_name.setStart(start_time);
         if(end_time!=-1)
         task_name.setEnd(end_time);
-        if(due_date!=-1)
-        task_name.setDue(due_date);
+        if(day != -1 && month != -1 && year != -1)
+        task_name.setDue(year,month,day);
         if(notify_me!=false)
         task_name.setNotify(notify_me);
     }
@@ -100,10 +106,11 @@ public class Task implements Serializable {//will add a description variable lat
     public int getEnd(){
         return end_time;
     }
-    public void setDue(int due_date){
-        this.due_date = due_date;
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setDue(int year, int month, int day){
+        this.due_date = LocalDate.of(year,month,day);
     }
-    public int getDue(){
+    public LocalDate getDue(){
         return due_date;
     }
     public void setNotify(Boolean notify_me){

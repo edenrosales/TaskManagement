@@ -1,26 +1,45 @@
 package com.example.taskmanagement;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDate;
+import java.util.LinkedList;
+
 public class TodoList{
-    public void getTaskList(int choice){
-    //method will return a task list given a selected view ToDo list
-    //choice 1 will be organized by date
-    //choice 2 will be organized by 
-    //for(int i = 0; i < Tasks.size(); i++)
-    //    if(Tasks.get(i).end_time <= current_date)
-    //        Tasks.remove(i);
-    
+    LocalDate current_date;
 
-    switch(choice){
-        case 1:
-            //case 1 will be by date
-            break;
-        case 2:
-            break;
-        default:
-            break;
+
+
+
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setDateToday(){
+        current_date = LocalDate.now();
     }
-}
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setDateCustom(int year, int month, int day) {
+        current_date = LocalDate.of(year, month, day);
+    }
 
+    LinkedList<Task> list = new LinkedList<>();
+
+    public void setTaskList(LinkedList<Task> input){
+        list = input;
+    //method will return a task list given a selected view ToDo list
+    //will be organized by date
+
+}
+    public void sortTasks(int choice){
+        list = TaskList.sortTasks(choice, list);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void filterTasks(){
+        list = TaskList.filterTasksByDate(list,current_date,1);
+    }
     public void displayTaskList(){
     //method will show the tasks obtained from getTaskList() method in a to-do-list fashion
     }

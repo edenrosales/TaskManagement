@@ -1,7 +1,35 @@
 package com.example.taskmanagement;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Calendar {
+    LocalDate current_date;
+    LinkedList<Task> list = new LinkedList<>();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setDateToday(){
+        current_date = LocalDate.now();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setDateCustom(int year, int month, int day){
+        current_date = LocalDate.of(year, month,day);
+    }
+
+    public void setTaskList(LinkedList<Task> input){
+        list = input;
+    }
+
+    public void sortTasks(int choice){
+        list = TaskList.sortTasks(choice,list);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void filterTasks(){
+        list = TaskList.filterTasksByDate(list,current_date,0);
+    }
 
     public void viewPresent(){
     //method will show the current calendar day in the calendar view
