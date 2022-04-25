@@ -9,11 +9,8 @@ import java.util.LinkedList;
 
 public class TodoList{
     LocalDate current_date;
-
-
-
-
-
+    LinkedList<Task> list = new LinkedList<>();
+    LinkedList<Tag> tags = new LinkedList<>();
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -25,8 +22,9 @@ public class TodoList{
         current_date = LocalDate.of(year, month, day);
     }
 
-    LinkedList<Task> list = new LinkedList<>();
-
+    public void inputTags(){
+        tags = TaskList.parseTags(list);
+    }
     public void setTaskList(LinkedList<Task> input){
         list = input;
     //method will return a task list given a selected view ToDo list

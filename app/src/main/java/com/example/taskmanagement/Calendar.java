@@ -10,6 +10,11 @@ import java.util.LinkedList;
 public class Calendar {
     LocalDate current_date;
     LinkedList<Task> list = new LinkedList<>();
+    LinkedList<Tag> tags = new LinkedList<>();
+
+    public void inputTags(){
+        tags = TaskList.parseTags(list);
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setDateToday(){
         current_date = LocalDate.now();
