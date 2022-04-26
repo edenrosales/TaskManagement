@@ -7,15 +7,27 @@ import org.junit.jupiter.api.Test;
 class TaskTest {
 
     @Test
+    void createTask() {
+        Tag temp = new Tag();
+        temp.setName("School");
+        temp.setColor("Green");
+        Task newTask = new Task("Do 380 project","Do some work", temp,0,1,1,1,2022,false);
+        assertEquals("Do 380 project",newTask.getName());
+        assertEquals("Do some work", newTask.getDescription());
+        assertEquals(temp,newTask.getTag());
+        assertEquals(0,newTask.getStart());
+        assertEquals(1,newTask.getEnd());
+    }
+
+    @Test
     void editTask() {
-//        Task newTask = new Task("Wash Dishes","Make sure the dishes are washed",null,0,10,0,false);
-////        newTask.editTask(newTask,"Clean Room","Make sure the dishes are washed",null,-1,-1,10,true);
-//        assertEquals("Clean Room",newTask.getName());
-//        assertEquals("Make sure the dishes are washed",newTask.getDescription());
-//        assertEquals(null,newTask.getTag());
-//        assertEquals(0,newTask.getStart());
-//        assertEquals(10,newTask.getEnd());
-//        assertEquals(10,newTask.getDue());
-//        assertEquals(true,newTask.getNotify());
+        Tag temp = new Tag();
+        temp.setName("School");
+        temp.setColor("Green");
+        Task newTask = new Task("Do 380 project","Do some work", temp,0,1,1,1,2022,false);
+        Tag newTag = new Tag();
+        newTag.setName("Work");
+        newTask.editTask(newTask,null,null,newTag,-1,-1,-1,-1,-1,true);
+        assertEquals(newTag, newTask.getTag());
     }
 }

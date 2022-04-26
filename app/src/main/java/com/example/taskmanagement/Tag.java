@@ -6,19 +6,15 @@ public class Tag {
     String name;
     String color;
     public void setName(String name){
-        name = name;
+        this.name = name;
     }
     public String getName() {
-        if(!name.isEmpty())
         return name;
-        else return null;
     }
     public void setColor(String color){
-        color = color;
+        this.color = color;
     }
     public String getColor(){
-        if(!color.isEmpty())
-            return color;
-        else return null;
+        return color;
     }
 }
