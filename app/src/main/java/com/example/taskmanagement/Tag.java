@@ -5,6 +5,12 @@ import android.graphics.Color;
 public class Tag {
     String name;
     String color;
+
+    public Tag(String name){
+        this.name = name;
+        this.color = null;
+    }
+
     public void setName(String name){
         this.name = name;
     }
