@@ -35,6 +35,8 @@ public class AddTaskView extends AppCompatActivity{
     Boolean notify_me = false;
     LocalDate due_Date;
     int day, month, year;
+    Task new_task;
+    boolean is_Task_added = false;
 
     TextView tvSelectDate;
 
@@ -101,11 +103,12 @@ public class AddTaskView extends AppCompatActivity{
                 showText(description);
 
                 //call constructor
-                Task new_task = new Task(name, description, t, start_time, end_time, day, month,year ,false);
+                new_task = new Task(name, description, t, start_time, end_time, day, month,year ,false);
                 //insert into database taskList call goes here
                 MainActivity.taskList.Tasks.add(new_task);
                 System.out.println("TASKLIST SIZE: " + MainActivity.taskList.Tasks.size());
                 //call to return to main Activity (To--DoList View)
+                is_Task_added = true;
                 openMainView();
             }
         });
