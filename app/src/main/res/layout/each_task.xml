@@ -15,4 +15,15 @@
         android:maxLength="50"
         android:singleLine="true"
         />
+
+    <TextView
+        android:id="@+id/task_list_description"
+        android:layout_width="290dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/fredokaone_regular"
+        android:maxLength="100"
+        android:maxLines="2"
+        android:text="Description" />
 </RelativeLayout>
