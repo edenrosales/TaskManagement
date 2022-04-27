@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.time.LocalDate;
@@ -21,7 +23,7 @@ import java.util.Calendar;
 
 
 public class AddTaskView extends AppCompatActivity{
-
+    private static final String TAG = "MainActivity";
     //input variables
     String name;
     int start_time;
@@ -88,7 +90,7 @@ public class AddTaskView extends AppCompatActivity{
                 end_time = Integer.valueOf(end_timeInput.getText().toString());
                 tag = tagInput.getText().toString();
                 Tag t = new Tag(tag);
-                due_date = due_dateInput.getText().toString();
+                //due_date = due_dateInput.getText().toString();
                 description = descriptionInput.getText().toString();
                 //show values to the user
                 showText(name);
@@ -100,9 +102,9 @@ public class AddTaskView extends AppCompatActivity{
 
                 //call constructor
                 Task new_task = new Task(name, description, t, start_time, end_time, day, month,year ,false);
-
                 //insert into database taskList call goes here
                 MainActivity.taskList.Tasks.add(new_task);
+                System.out.println("TASKLIST SIZE: " + MainActivity.taskList.Tasks.size());
                 //call to return to main Activity (To--DoList View)
                 openMainView();
             }

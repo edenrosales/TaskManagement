@@ -7,19 +7,15 @@
     android:background="#FFFFFF"
     tools:context="com.example.taskmanagement.MainActivity">
 
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="150dp"/>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="350dp"
-        android:layout_marginTop="590dp"
+        android:layout_marginStart="350dp"
+        android:layout_marginTop="550dp"
         android:text="+" />
+
+
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -58,6 +54,13 @@
         </ScrollView>
 
     </androidx.core.widget.NestedScrollView>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_centerInParent="true" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
