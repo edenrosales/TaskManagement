@@ -34,6 +34,10 @@ public class TaskList {
     public LinkedList<Task> getCalendarTasks(){
         return CalendarTasks;
     }
+    //empty taskList()
+    public TaskList(){
+        
+    }
 
     //Might implement a trie tree later to make this more in depth.
     public Task getTask(String name, int view){

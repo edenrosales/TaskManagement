@@ -15,10 +15,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+
 
 public class AddTaskView extends AppCompatActivity{
 
@@ -35,7 +35,6 @@ public class AddTaskView extends AppCompatActivity{
     int day, month, year;
 
     TextView tvSelectDate;
-
 
     EditText nameInput, start_timeInput, end_timeInput, tagInput , due_dateInput, descriptionInput, etSelectDate;
 
@@ -103,14 +102,14 @@ public class AddTaskView extends AppCompatActivity{
                 Task new_task = new Task(name, description, t, start_time, end_time, day, month,year ,false);
 
                 //insert into database taskList call goes here
-
-
+                MainActivity.taskList.Tasks.add(new_task);
                 //call to return to main Activity (To--DoList View)
                 openMainView();
             }
         });
 
     }
+
 
     public void openMainView(){
         Intent intent = new Intent(this, MainActivity.class);
