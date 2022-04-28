@@ -52,7 +52,7 @@
         ]]>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/View_Task_Block"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleX="1"
