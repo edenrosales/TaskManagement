@@ -1,12 +1,10 @@
 package com.example.taskmanagement;
-//import com.example.taskmanagementTaskListTest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
     String name;
     String description;
     //selected task will be default until a use picks a task
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static Task selected_task = new Task("", "", new Tag(""), 0, 0, 0, 0, 0, false);
+    //@RequiresApi(api = Build.VERSION_CODES.O)
+    //public static Task selected_task = new Task("", "", new Tag(""), 0, 0, 0, 0, 0, false);
     public static TaskList taskList = new TaskList();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -54,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //we need to specify for each task however and its data
                 //jump to view_task_view
-                selected_task = taskList.Tasks.get(i);
-                viewTaskView();
+                //selected_task = taskList.Tasks.get(i);
+                //viewTaskView();
             }
         });
 

@@ -22,7 +22,7 @@ public class ViewTaskView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task_view);
         //set the task to be view to the task the user selected in the main activity
-        sel_task = MainActivity.selected_task;
+        //sel_task = MainActivity.selected_task;
 
 
 
