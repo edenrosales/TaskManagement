@@ -91,7 +91,7 @@ public class AddTaskView extends AppCompatActivity{
                 start_time = Integer.valueOf(start_timeInput.getText().toString());
                 end_time = Integer.valueOf(end_timeInput.getText().toString());
                 tag = tagInput.getText().toString();
-                Tag t = new Tag(tag);
+                Tag new_tag = new Tag(tag);
                 //due_date = due_dateInput.getText().toString();
                 description = descriptionInput.getText().toString();
                 //show values to the user
@@ -101,9 +101,8 @@ public class AddTaskView extends AppCompatActivity{
                 showText(tag);
                 //showText(due_date);
                 showText(description);
-
                 //call constructor
-                new_task = new Task(name, description, t, start_time, end_time, day, month,year ,false);
+                new_task = new Task(name, description, new_tag, start_time, end_time, day, month + 1,year ,false);
                 //insert into database taskList call goes here
                 MainActivity.taskList.Tasks.add(new_task);
                 System.out.println("TASKLIST SIZE: " + MainActivity.taskList.Tasks.size());

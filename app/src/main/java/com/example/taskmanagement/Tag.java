@@ -11,6 +11,12 @@ public class Tag {
         this.color = null;
     }
 
+    public Tag(String name, String color){
+        this.name = name;
+        this.color = color;
+    }
+
+
     public void setName(String name){
         this.name = name;
     }

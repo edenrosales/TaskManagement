@@ -1,67 +1,107 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout3"
     android:layout_width="fill_parent"
     android:layout_height="150dp"
-    android:padding="6dip" >
+    android:padding="6dip"
+    android:background="@color/black">
 
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleX="1.15"
+        android:scaleY="1.15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/task_box"
+        />
 
     <TextView
         android:id="@+id/task_list_description"
-        android:layout_width="202dp"
-        android:layout_height="70dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="203dp"
-        android:layout_marginBottom="41dp"
-        android:layout_toStartOf="@+id/task_list_end"
+        android:layout_width="204dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/fredokaone_regular"
         android:maxLines="4"
         android:text="Description"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/task_list_end"
+        app:layout_constraintHorizontal_bias="0.037"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_list_name" />
 
     <TextView
         android:id="@+id/task_list_name"
-        android:layout_width="204dp"
-        android:layout_height="16dp"
+        android:layout_width="206dp"
+        android:layout_height="24dp"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_above="@+id/task_list_description"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="201dp"
-        android:layout_marginBottom="3dp"
-        android:layout_toStartOf="@+id/task_list_start"
+        android:fontFamily="@font/fredokaone_regular"
         android:gravity="center_vertical"
         android:text="Name"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/task_list_description"
+        app:layout_constraintEnd_toStartOf="@+id/task_list_start"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/task_list_ends_at"
+        android:layout_width="69dp"
+        android:layout_height="49dp"
+        android:maxLines="1"
+        android:text="Starts at:"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/task_list_starts_at"
+        app:layout_constraintEnd_toStartOf="@+id/task_list_start"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/task_list_starts_at"
+        android:layout_width="69dp"
+        android:layout_height="49dp"
+        android:maxLines="1"
+        android:text="Ends at:"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/task_list_end"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_list_ends_at" />
 
     <TextView
         android:id="@+id/task_list_start"
-        android:layout_width="137dp"
-        android:layout_height="38dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="49dp"
+        android:layout_width="69dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
         android:maxLines="1"
         android:text="Start Time"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/task_list_end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/task_list_end"
-        android:layout_width="138dp"
-        android:layout_height="46dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="64dp"
+        android:layout_width="68dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="4dp"
         android:maxLines="1"
         android:text="End Time"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_list_start" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

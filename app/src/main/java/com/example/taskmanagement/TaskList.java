@@ -6,9 +6,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
+
 
 //import javax.lang.model.util.ElementScanner14;
 
@@ -16,6 +19,7 @@ public class TaskList {
     LinkedList<Task> Tasks = new LinkedList<>();
     LinkedList<Task> TodoListTasks = new LinkedList<>();
     LinkedList<Task> CalendarTasks = new LinkedList<>();
+    LinkedList<Tag> Tags = new LinkedList<>();
 
 
     //view determines the LinkedList this function searches
@@ -31,9 +35,10 @@ public class TaskList {
     public LinkedList<Task> getTodoListTasks(){
         return TodoListTasks;
     }
-    public LinkedList<Task> getCalendarTasks(){
-        return CalendarTasks;
-    }
+    public LinkedList<Task> getCalendarTasks(){ return CalendarTasks; }
+    public LinkedList<Tag> getTags(){return Tags;}
+
+
     //empty taskList()
     public TaskList(){
         
@@ -184,14 +189,34 @@ public class TaskList {
             }
         }
         else if(setting ==1){
-            for(int i =input.size()-1; i>0;i--){
-                if(!input.get(i).due_date.equals(date)){
+            //indices in linked list are {0,1,2...,LL.size() - 1}
+            for(int i =input.size()-1; i>=0;i--){
+                //we check if the Local Date object of each Task is before today's date, we get rid of it from the input list
+                if(input.get(i).due_date.isBefore(date)){
+                //if(!input.get(i).due_date.equals(date)){
                     input.remove(i);
                 }
             }
         }
         return input;
     }
+
+    //method to return the set of active tags... NOTE input, must be filtered by date first
+    public static LinkedList<Tag> removeDuplicateTags(LinkedList<Task> input){
+        LinkedList<Tag> output = new LinkedList<>();
+        for(int i = 0; i < input.size(); i++){
+            //if the output list does not have task, tag, we add
+            if(!output.contains(input.get(i).associated_tag)){
+                //if(){
+                    output.add(input.get(i).associated_tag);
+
+                //}
+            }
+            //if its already inside, we continue
+        }
+        return output;
+    }
+
     //this function searches for a task and returns it
     //Might implement a trie tree later to make this more in depth, but otherwise its the same as the getTask function
     //in the future, what will happen is that it will return a LinkedList

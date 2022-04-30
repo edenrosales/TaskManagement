@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskManagement">
         <activity
+            android:name=".CreateTag"
+            android:exported="false" />
+        <activity
             android:name=".ViewTaskView"
             android:exported="false" />
         <activity

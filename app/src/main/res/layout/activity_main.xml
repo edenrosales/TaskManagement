@@ -29,7 +29,8 @@
                 <ListView
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
-                    android:layout_height="509dp" />
+                    android:layout_height="509dp"
+                    android:divider="@color/black" />
             </LinearLayout>
         </ScrollView>
 
@@ -83,62 +84,53 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:tabMode="scrollable">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Const_tab_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <!--for these tabs could do a for loop that iterates through the tag_list class for n items
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tag_tab_layout"
+                android:layout_width="339dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabMode="scrollable">
+
+                <!--for these tabs could do a for loop that iterates through the tag_list class for n items
             and for each item -->
-            <!--#runs the com code but just replaces the text with the name variable of the tag objects
+                <!--#runs the com code but just replaces the text with the name variable of the tag objects
             -->
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Test" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/all_tags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Project" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School" />
+            </com.google.android.material.tabs.TabLayout>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Project" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/create_Tag_button"
+                android:layout_width="109dp"
+                android:layout_height="55dp"
+                android:clickable="true"
+                app:backgroundTint="#7101DF"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tag_tab_layout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Project" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Project" />
-
-        </com.google.android.material.tabs.TabLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:layout_width="wrap_content"
