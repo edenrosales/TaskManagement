@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class AddTaskView extends AppCompatActivity{
@@ -91,7 +92,13 @@ public class AddTaskView extends AppCompatActivity{
                 start_time = Integer.valueOf(start_timeInput.getText().toString());
                 end_time = Integer.valueOf(end_timeInput.getText().toString());
                 tag = tagInput.getText().toString();
-                Tag new_tag = new Tag(tag);
+                int min = 50;
+                int max = 100;
+                //Generate random int value from 50 to 100
+                int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+                //for not it will be a random integer when adding tasks
+                // I WILL NEED TO IMPLEMENT A DRAG DROP MENU FOR CHOOSING AN EXISTING TAG
+                Tag new_tag = new Tag(tag, random_int);
                 //due_date = due_dateInput.getText().toString();
                 description = descriptionInput.getText().toString();
                 //show values to the user

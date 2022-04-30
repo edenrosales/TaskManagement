@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         //get the current date
         today = LocalDate.now();
         //10 tasks will be added here
-        Tag t1 = new Tag("S");
-        Tag t2 = new Tag("W");
+        Tag t1 = new Tag("S", R.color.teal_200);
+        Tag t2 = new Tag("W", R.color.white);
         taskList.Tags.add(t1);
         taskList.Tags.add(t2);
         taskList.Tasks.add(new Task("Task 1", "This is the description of Task 1. Must do sub item 1 and 2 of Task 1", t1, 1, 2, 29, 10, 2022, false ));

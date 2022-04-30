@@ -33,7 +33,7 @@ public class TaskBoxAdapter extends ArrayAdapter<Task>  {
         String description = getItem(position).getDescription();
         Integer sT= getItem(position).getStart(); String startTime = sT.toString();
         Integer eT = getItem(position).getEnd(); String endTime = eT.toString();
-
+        getItem(position).associated_tag.getColor();
 
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         convertView = layoutInflater.inflate(mResource, parent, false);
@@ -41,6 +41,7 @@ public class TaskBoxAdapter extends ArrayAdapter<Task>  {
         TextView txtDes = convertView.findViewById(R.id.task_list_description);
         TextView txtStart = convertView.findViewById(R.id.task_list_start);
         TextView txtEnd = convertView.findViewById(R.id.task_list_end);
+        convertView.setBackgroundColor(getItem(position).associated_tag.color);
         txtName.setText(name);
         txtDes.setText(description);
         txtStart.setText(startTime);

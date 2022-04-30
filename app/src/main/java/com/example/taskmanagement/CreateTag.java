@@ -1,26 +1,52 @@
 package com.example.taskmanagement;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class CreateTag extends AppCompatActivity {
 private Button submit;
+private FloatingActionButton colorButton;
 String name;
-String color = null;
+int color;
 EditText nameInput;
+int defaultColor;
+FrameLayout frameLayout;
+ImageView tagColorBackground;
+ConstraintLayout cL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_tag);
         nameInput = (EditText) findViewById(R.id.Create_Tag_Name_Text_Input);
-        //name = nameInput.getText().toString();
-        //showText(name);
+        tagColorBackground = findViewById(R.id.Create_Tag_Block);
+        colorButton = (FloatingActionButton) findViewById(R.id.pick_color);
+        //default color for tags is "#6200EE"
+        //color = "#6200EE";
+
+        defaultColor = ContextCompat.getColor(this, com.google.android.material.R.color.design_default_color_primary);
+        colorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openColorPicker();
+            }
+        });
+
+
 
 
 
@@ -40,13 +66,27 @@ EditText nameInput;
                         return;
                     }
                 }
-                if(color == null)
-                    MainActivity.taskList.Tags.add(new Tag(name));
-                else
-                    MainActivity.taskList.Tags.add(new Tag(name, color));
+                MainActivity.taskList.Tags.add(new Tag(name, color));
                 openMainView();
             }
         });
+    }
+    //open color picker method
+    public void openColorPicker(){
+        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(this, defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {}
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                defaultColor = color;
+                tagColorBackground.setBackgroundColor(defaultColor);
+                color = Integer.valueOf(defaultColor);
+                System.out.println("Value of color is: " + defaultColor);
+
+            }
+        });
+        ambilWarnaDialog.show();
     }
 
     public void openMainView(){

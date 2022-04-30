@@ -30,7 +30,9 @@
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
                     android:layout_height="509dp"
-                    android:divider="@color/black" />
+                    android:divider="@color/black"
+                    android:dividerHeight="1dp"
+                    />
             </LinearLayout>
         </ScrollView>
 
@@ -97,7 +99,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
+                app:layout_constraintStart_toEndOf="@+id/create_Tag_button"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabMode="scrollable">
 
