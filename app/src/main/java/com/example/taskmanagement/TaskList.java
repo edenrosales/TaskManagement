@@ -66,11 +66,13 @@ public class TaskList {
 
     //I think that this function returns the LinkedList that cooresponds to the tasks that we want? This funciton might need to sort, not sure yet
     //I think that this function returns all the tasks according to the Tag that is input
-    public LinkedList<Task> getTasks(Tag type){
+
+    //
+    public static LinkedList<Task> getTasks(LinkedList<Task> list,Tag type){
         LinkedList<Task> results=  new LinkedList<>();
-        for(int i =0; i<Tasks.size();i++){
-            if(Tasks.get(i).associated_tag.name.equals(type.name)){
-                results.add(Tasks.get(i));
+        for(int i =0; i<list.size();i++){
+            if(list.get(i).associated_tag.name.equals(type.name)){
+                results.add(list.get(i));
             }
         }
         return results;
@@ -79,6 +81,8 @@ public class TaskList {
     //this tasks filters, this means we need a sort for this
     //by alphabetical order or something idk.
     //filter by current parameters: alphabetial, tag,
+
+    //TodoList.setTasks(TaskList.sort(TaskList.getTaskList());
 
     //i changed this to static so that it might work better with the other classes that we have made so far
     public static LinkedList<Task> sortTasks(int setting, LinkedList<Task> list){
