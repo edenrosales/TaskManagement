@@ -33,6 +33,7 @@ public class Task implements Serializable {//will add a description variable lat
     int end_time;
     LocalDate due_date;
     Boolean notify_me;
+    Boolean completed = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Task(String name, String description, Tag associated_tag, int start_time, int end_time, int day, int month, int year, Boolean notify_me){
