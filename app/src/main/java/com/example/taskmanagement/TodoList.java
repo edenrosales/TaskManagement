@@ -12,7 +12,11 @@ public class TodoList{
     LinkedList<Task> list = new LinkedList<>();
     LinkedList<Tag> tags = new LinkedList<>();
 
+    public TodoList(){
 
+    }
+
+    public LinkedList<Task> getList(){ return list;}
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setDateToday(){
         current_date = LocalDate.now();

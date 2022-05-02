@@ -11,15 +11,19 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.Random;
 
 
@@ -49,17 +53,26 @@ public class AddTaskView extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task_view);
+        setContentView(R.layout.add_task_view_act);
         //calling inputs
-        nameInput = (EditText) findViewById(R.id.name_input);
-        start_timeInput = (EditText) findViewById(R.id.start_time_input);
-        end_timeInput = (EditText) findViewById(R.id.end_time_input);
-        tagInput = (EditText) findViewById(R.id.tag_input);
+        nameInput = (EditText) findViewById(R.id.name_input2);
+        start_timeInput = (EditText) findViewById(R.id.start_time_input2);
+        end_timeInput = (EditText) findViewById(R.id.end_time_input2);
+
+        /**************************************************************************/
+        //declare spinner for tag
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinner2);
+        LinkedList<Tag> c_tags = MainActivity.taskList.getTags();
+        LinkedList<String> tagNames = Tag.getListOfTagNames(c_tags);
+        ArrayAdapter<String> aDapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,tagNames);
+        aDapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
+        mySpinner.setAdapter(aDapter);
+        /**************************************************************************/
         //due_dateInput = (EditText) findViewById(R.id.due_date_input);
         //DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
         //due_Date = LocalDate.parse(due_dateInput, dateFormat);
-        descriptionInput = (EditText) findViewById(R.id.description_input);
-        tvSelectDate = findViewById(R.id.due_date_text);
+        descriptionInput = (EditText) findViewById(R.id.description_input2);
+        tvSelectDate = findViewById(R.id.due_date_text2);
         //etSelectDate = findViewById(R.id.due_date_text);
         java.util.Calendar c = java.util.Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -81,37 +94,46 @@ public class AddTaskView extends AppCompatActivity{
         });
 
         //initializing button
-        submitButton = (Button) findViewById(R.id.submit_button);
+        submitButton = (Button) findViewById(R.id.button2);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+                Tag current_tag = new Tag("",0);
                 //we call constructor here
                 name = nameInput.getText().toString();
                 //right now for testing lets do int 0-24 time... we can convert to float or double once we know display works
                 start_time = Integer.valueOf(start_timeInput.getText().toString());
                 end_time = Integer.valueOf(end_timeInput.getText().toString());
-                tag = tagInput.getText().toString();
+                tag = mySpinner.toString();
+                for(int i = 0; i < MainActivity.taskList.getTags().size() ; i++){
+                    if(MainActivity.taskList.Tags.get(i).name.equals(tag)){
+                      //set current tag to constructor
+                        current_tag = MainActivity.taskList.Tags.get(i);
+                    }
+                }
                 int min = 50;
                 int max = 100;
                 //Generate random int value from 50 to 100
                 int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
                 //for not it will be a random integer when adding tasks
                 // I WILL NEED TO IMPLEMENT A DRAG DROP MENU FOR CHOOSING AN EXISTING TAG
-                Tag new_tag = new Tag(tag, random_int);
+                //Tag new_tag = new Tag(tag, random_int);
                 //due_date = due_dateInput.getText().toString();
                 description = descriptionInput.getText().toString();
                 //show values to the user
                 showText(name);
                 showText(String.valueOf(start_time));
                 showText(String.valueOf(end_time));
-                showText(tag);
+                //showText(tag);
                 //showText(due_date);
                 showText(description);
                 //call constructor
-                new_task = new Task(name, description, new_tag, start_time, end_time, day, month + 1,year ,false);
+                //if tag == null set tag to "all"/default tag
+                new_task = new Task(name, description, current_tag, start_time, end_time, day, month + 1,year ,false);
                 //insert into database taskList call goes here
                 MainActivity.taskList.Tasks.add(new_task);
+                MainActivity.taskList.TodoListTasks.add(new_task);
                 System.out.println("TASKLIST SIZE: " + MainActivity.taskList.Tasks.size());
                 //call to return to main Activity (To--DoList View)
                 is_Task_added = true;

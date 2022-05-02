@@ -4,6 +4,8 @@ import android.graphics.Color;
 
 import androidx.core.content.ContextCompat;
 
+import java.util.LinkedList;
+
 public class Tag {
     String name;
     int color;
@@ -30,4 +32,14 @@ public class Tag {
     public int getColor(){
         return color;
     }
+
+    //returns list of names of all tags in TaskList object, really used to display in spinner widget UI
+    public static LinkedList<String> getListOfTagNames(LinkedList<Tag> t){
+        LinkedList<String> result = new LinkedList<>();
+        for(int i = 0; i < t.size(); i++){
+            result.add(t.get(i).getName());
+        }
+        return result;
+    }
+
 }

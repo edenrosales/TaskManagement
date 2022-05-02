@@ -34,7 +34,6 @@ public class TaskBoxAdapter extends ArrayAdapter<Task>  {
         Integer sT= getItem(position).getStart(); String startTime = sT.toString();
         Integer eT = getItem(position).getEnd(); String endTime = eT.toString();
         getItem(position).associated_tag.getColor();
-
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         convertView = layoutInflater.inflate(mResource, parent, false);
         TextView txtName = convertView.findViewById(R.id.task_list_name);

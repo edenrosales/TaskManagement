@@ -46,10 +46,6 @@ ConstraintLayout cL;
             }
         });
 
-
-
-
-
         submit = findViewById(R.id.Submit_CreateTag);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
