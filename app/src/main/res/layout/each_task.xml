@@ -3,22 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout3"
     android:layout_width="fill_parent"
-    android:layout_height="150dp"
+    android:layout_height="200dp"
     android:background="@color/teal_700"
     android:padding="6dip">
 
 
-    <!--- <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleX="1.15"
-        android:scaleY="1.15"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/task_list_due_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:maxLines="1"
+        android:text="Due Date"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/task_list_start"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/task_box" />-->
+        app:layout_constraintVertical_chainStyle="spread" />
+
     <TextView
         android:id="@+id/task_list_description"
         android:layout_width="204dp"
@@ -34,35 +37,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_list_name" />
 
+
+    <TextView
+        android:id="@+id/task_list_due_date"
+        android:layout_width="82dp"
+        android:layout_height="38dp"
+        android:layout_alignWithParentIfMissing="true"
+        android:fontFamily="@font/fredokaone_regular"
+        android:gravity="center_vertical"
+        android:text="Due Date:"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/task_list_ends_at"
+        app:layout_constraintEnd_toStartOf="@+id/task_list_due_date_text"
+        app:layout_constraintStart_toEndOf="@+id/task_list_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/task_list_name"
         android:layout_width="206dp"
-        android:layout_height="24dp"
+        android:layout_height="35dp"
         android:layout_alignWithParentIfMissing="true"
         android:fontFamily="@font/fredokaone_regular"
         android:gravity="center_vertical"
         android:text="Name"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/task_list_description"
         app:layout_constraintEnd_toStartOf="@+id/task_list_start"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/task_list_ends_at"
         android:layout_width="69dp"
         android:layout_height="49dp"
+        android:layout_marginEnd="24dp"
         android:maxLines="1"
         android:text="Starts at:"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/task_list_starts_at"
         app:layout_constraintEnd_toStartOf="@+id/task_list_start"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_list_due_date"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
@@ -74,33 +91,34 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/task_list_end"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/task_list_description"
         app:layout_constraintTop_toBottomOf="@+id/task_list_ends_at" />
 
     <TextView
         android:id="@+id/task_list_start"
         android:layout_width="69dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="4dp"
         android:maxLines="1"
         android:text="Start Time"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/task_list_end"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.997"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_list_due_date_text"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/task_list_end"
         android:layout_width="68dp"
         android:layout_height="51dp"
-        android:layout_marginEnd="4dp"
         android:maxLines="1"
         android:text="End Time"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.994"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_list_start" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

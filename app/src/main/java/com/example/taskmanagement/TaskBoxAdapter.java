@@ -40,7 +40,7 @@ public class TaskBoxAdapter extends ArrayAdapter<Task>  {
         TextView txtDes = convertView.findViewById(R.id.task_list_description);
         TextView txtStart = convertView.findViewById(R.id.task_list_start);
         TextView txtEnd = convertView.findViewById(R.id.task_list_end);
-        convertView.setBackgroundColor(getItem(position).associated_tag.color);
+        convertView.setBackgroundColor(getItem(position).getTag().getColor());
         txtName.setText(name);
         txtDes.setText(description);
         txtStart.setText(startTime);

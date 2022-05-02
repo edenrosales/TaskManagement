@@ -42,4 +42,16 @@ public class Tag {
         return result;
     }
 
+    //finds name in the list of tags
+    public static Tag findName(LinkedList<Tag> tags, String name){
+        for(int i = 0; i < tags.size(); i++){
+            if(tags.get(i).name.equals(name)){
+                Tag result = tags.get(i);
+                return result;
+            }
+        }
+        return null;
+    }
+
+
 }

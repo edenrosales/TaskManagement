@@ -1,17 +1,21 @@
 package com.example.taskmanagement;
 import static com.example.taskmanagement.TaskList.filterTasksByDate;
+import static com.example.taskmanagement.TaskList.getTasks;
 import static com.example.taskmanagement.TaskList.parseTags;
 import static com.example.taskmanagement.TaskList.removeDuplicateTags;
+import static com.example.taskmanagement.TaskList.sortTasks;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.time.LocalDate;
@@ -42,16 +46,13 @@ public class MainActivity extends AppCompatActivity {
         //get the current date
         today = LocalDate.now();
         //10 tasks will be added here
-       //Tag t1 = new Tag("S", R.color.teal_200);
-       // Tag t2 = new Tag("W", R.color.white);
-       // taskList.Tags.add(t1);
-       // taskList.Tags.add(t2);
-       // taskList.Tasks.add(new Task("Task 1", "This is the description of Task 1. Must do sub item 1 and 2 of Task 1", t1, 1, 2, 29, 10, 2022, false ));
-       // taskList.Tasks.add(new Task("Task 2", "This is the description of Task 2. Must do sub item 1 and 2 of Task 2", t2, 3, 4, 3, 10, 2022, false ));
-       // taskList.Tasks.add(new Task("Task 3", "This is the description of Task 3. Must do sub item 1 and 2 of Task 3", t2, 5, 6, 4, 10, 2022, false ));
-       // taskList.Tasks.add(new Task("Task 4", "This is the description of Task 4. Must do sub item 1 and 2 of Task 4", t1, 7, 8, 5, 10, 2022, false ));
-       // taskList.Tasks.add(new Task("Task 5", "This is the description of Task 5. Must do sub item 1 and 2 of Task 5", t2, 9, 10, 6, 10, 2022, false ));
-        //out todoList Tasks will be filtered by date first, the last parameter, 1, is todoList View
+        taskList.Tags.add(new Tag("Tag 1", 42000));
+        taskList.Tags.add(new Tag("Tag 2", 32000));
+        todo.list.add(new Task("Task 1", "Description 1", taskList.Tags.get(0), 8, 10, 3,5,2022,false));
+        todo.list.add(new Task("Task 2", "Description 2", taskList.Tags.get(0), 11, 12, 3,5,2022,false));
+        todo.list.add(new Task("Task 3", "Description 3", taskList.Tags.get(1), 1, 2, 4,5,2022,false));
+
+        //our todoList Tasks will be filtered by date first, the last parameter, 1, is todoList View
         //taskList.TodoListTasks = filterTasksByDate(taskList.Tasks, today, 1);
         //filtering todo list tasks by date
         todo.list = filterTasksByDate(todo.list, today, 1);
@@ -63,21 +64,68 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < taskList.Tags.size(); i++){
             t.addTab(t.newTab().setText(taskList.Tags.get(i).name));
         }
-        //
+
+        //Tab bar adapter, this will give us the opportunity to access each tab item's function
+        ArrayAdapter tabAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, todo.list);
+        t.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println(R.id.all_tags);
+                        System.out.println(tab.getId());
+                        System.out.println(tab.getText().toString());
+                        if(tab.getText().toString().equals("All")){
+                            //this is all, we refresh main activity// it will go back to start...database isn't running so all will work properly once database is working
+                            TaskBoxAdapter specialAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, todo.list);
+                            listview.setAdapter(specialAdapter);
+                            accessList(listview);
+                        }
+                        //for a specific tag
+                        else{
+                            ListView special_list = (ListView) findViewById(R.id.listView);
+                            String name = tab.getText().toString();
+                            //System.out.println(name);
+                            Tag tag = Tag.findName(taskList.getTags(), name);
+                            LinkedList<Task> special_tasks = getTasks(todo.getList(), tag);
+                            TaskBoxAdapter specialAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, special_tasks);
+                            listview.setAdapter(specialAdapter);
+                            accessList(listview);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         //call for adapter to show list of task objects in a list
         //TaskBoxAdapter tAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, taskList.TodoListTasks );
         TaskBoxAdapter tAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, todo.list);
         listview.setAdapter(tAdapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                //if a task item is clicked, code will jump here
 
-                //pass through only primitive types of data, since classes wont work with this implementation
-                    //must pass name, description, start_time, end_time, day, month, year
-                viewTaskView();
-            }
-        });
+        //
+        accessList(listview);
+        //
+
+        //listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //    @Override
+        //    public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+        //        //if a task item is clicked, code will jump here
+        //
+        //        //pass through only primitive types of data, since classes wont work with this implementation
+        //            //must pass name, description, start_time, end_time, day, month, year
+        //        viewTaskView();
+        //    }
+        //});
 
         button = (FloatingActionButton) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -106,5 +154,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewTaskView.class);
         startActivity(intent);
     }
+    
+    //method will be called both by tab selection and no tab selected
+    public void accessList(ListView listView){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                //if a task item is clicked, code will jump here
+                //pass through only primitive types of data, since classes wont work with this implementation
+                //must pass name, description, start_time, end_time, day, month, year
+                //viewTaskView();
+            }
+        });
+    }
+    
 }
 

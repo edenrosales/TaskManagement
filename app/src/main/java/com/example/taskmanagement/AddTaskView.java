@@ -42,6 +42,7 @@ public class AddTaskView extends AppCompatActivity{
     int day, month, year;
     Task new_task;
     boolean is_Task_added = false;
+    Tag current_tag = new Tag("",0);
 
     TextView tvSelectDate;
 
@@ -99,7 +100,7 @@ public class AddTaskView extends AppCompatActivity{
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Tag current_tag = new Tag("",0);
+                //Tag current_tag = new Tag("",0);
                 //we call constructor here
                 name = nameInput.getText().toString();
                 //right now for testing lets do int 0-24 time... we can convert to float or double once we know display works
@@ -110,6 +111,9 @@ public class AddTaskView extends AppCompatActivity{
                     if(MainActivity.taskList.Tags.get(i).name.equals(tag)){
                       //set current tag to constructor
                         current_tag = MainActivity.taskList.Tags.get(i);
+                        //need to set tag to new created task
+                        /***************************************/
+                        //
                     }
                 }
                 int min = 50;
