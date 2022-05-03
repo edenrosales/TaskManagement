@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     //public static Task selected_task = new Task("", "", new Tag(""), 0, 0, 0, 0, 0, false);
     public static TaskList taskList = new TaskList();
     public static Tag all = new Tag("All", R.color.teal_700);
+   // public static Task selected_task = new Task("","", all, 0,0,9,9,9999, false);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -163,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
                 //if a task item is clicked, code will jump here
                 //pass through only primitive types of data, since classes wont work with this implementation
                 //must pass name, description, start_time, end_time, day, month, year
-                //viewTaskView();
+                //selected_task = taskList.TodoListTasks.get(i);
+                viewTaskView();
             }
         });
     }

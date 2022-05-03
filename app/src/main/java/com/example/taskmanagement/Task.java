@@ -10,7 +10,7 @@ import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+//Task.task
 //Will be used with the Database class
 @Entity
 public class Task implements Serializable {//will add a description variable later.

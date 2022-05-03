@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.text.method.CharacterPickerDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,6 +69,7 @@ public class AddTaskView extends AppCompatActivity{
         ArrayAdapter<String> aDapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,tagNames);
         aDapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
         mySpinner.setAdapter(aDapter);
+
         /**************************************************************************/
         //due_dateInput = (EditText) findViewById(R.id.due_date_input);
         //DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");

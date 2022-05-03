@@ -3,6 +3,7 @@ package com.example.taskmanagement;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -35,8 +36,14 @@ public class ViewTaskView extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                editTaskView();
             }
         });
     }
+    //method to open the edit task view
+    public void editTaskView(){
+        Intent intent = new Intent(this, ViewTaskView.class);
+        startActivity(intent);
+    }
+
 }

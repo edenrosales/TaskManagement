@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#323232"
+    tools:context=".edit_task">
+
+  <EditText
+      android:id="@+id/name_edit_task"
+      android:layout_width="301dp"
+      android:layout_height="51dp"
+      android:fontFamily="@font/fredokaone_regular"
+      android:maxLength="30"
+      android:maxLines="2"
+      android:text="Name"
+      android:textAlignment="center"
+      android:textColor="#FFFFFF"
+      android:textSize="30sp"
+      app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <FrameLayout
+      android:id="@+id/frameLayout2"
+      android:layout_width="410dp"
+      android:layout_height="425dp"
+      android:layout_marginEnd="1dp"
+      app:layout_constraintBottom_toTopOf="@+id/submit_edit"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/name_edit_task">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="408dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/button5">
+
+      <ImageView
+          android:id="@+id/View_Task_Block"
+          android:layout_width="409dp"
+          android:layout_height="435dp"
+          android:scaleX="1"
+          android:scaleY="1"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:srcCompat="@drawable/view_and_add_task_background" />
+
+      <ImageView
+          android:id="@+id/end_time_block_view_task"
+          android:layout_width="168dp"
+          android:layout_height="55dp"
+          android:layout_marginEnd="16dp"
+          app:layout_constraintBottom_toTopOf="@+id/due_date_block_view_task"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.805"
+          app:srcCompat="@drawable/text_box_1" />
+
+      <TextView
+          android:id="@+id/text_end_time_title_for_view_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:text="End Time:"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/end_time_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/end_time_block_view_task"
+          app:layout_constraintHorizontal_bias="0.087"
+          app:layout_constraintStart_toStartOf="@+id/end_time_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/end_time_block_view_task"
+          app:layout_constraintVertical_bias="0.486" />
+
+      <EditText
+          android:id="@+id/text_end_time_for_edit_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:text="(End)"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/end_time_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/end_time_block_view_task"
+          app:layout_constraintHorizontal_bias="0.955"
+          app:layout_constraintStart_toStartOf="@+id/end_time_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/end_time_block_view_task"
+          app:layout_constraintVertical_bias="0.485" />
+
+
+      <ImageView
+          android:id="@+id/start_time_block_view_task"
+          android:layout_width="168dp"
+          android:layout_height="55dp"
+          android:layout_marginStart="16dp"
+          app:layout_constraintBottom_toTopOf="@+id/tag_block_view_task"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.805"
+          app:srcCompat="@drawable/text_box_1" />
+
+      <TextView
+          android:id="@+id/text_start_time_title_for_view_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:text="Start Time:"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/start_time_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/start_time_block_view_task"
+          app:layout_constraintHorizontal_bias="0.133"
+          app:layout_constraintStart_toStartOf="@+id/start_time_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/start_time_block_view_task"
+          app:layout_constraintVertical_bias="0.457" />
+
+      <EditText
+          android:id="@+id/text_start_time_for_edit_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:maxLength="7"
+          android:maxLines="1"
+          android:text="(Start)"
+          android:textColor="#FFFFFF"
+          android:textSize="15sp"
+          app:layout_constraintBottom_toBottomOf="@+id/start_time_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/start_time_block_view_task"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toStartOf="@+id/start_time_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/start_time_block_view_task"
+          app:layout_constraintVertical_bias="0.457" />
+
+      <Button
+          android:id="@+id/deleteTaskButton"
+          android:layout_width="91dp"
+          android:layout_height="49dp"
+          android:backgroundTint="@color/black"
+          android:fontFamily="@font/fredokaone_regular"
+          android:text="Delete"
+          android:textSize="13dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="@+id/View_Task_Block"
+          app:layout_constraintHorizontal_bias="0.877"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.042" />
+
+      <ImageView
+          android:id="@+id/tag_block_view_task"
+          android:layout_width="168dp"
+          android:layout_height="55dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginBottom="52dp"
+          app:layout_constraintBottom_toTopOf="@+id/description_block_view_task"
+          app:layout_constraintHorizontal_chainStyle="spread"
+          app:layout_constraintStart_toStartOf="parent"
+          app:srcCompat="@drawable/text_box_1" />
+
+      <TextView
+          android:id="@+id/text_tag_title_for_view_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:text="Tag:"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/tag_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/tag_block_view_task"
+          app:layout_constraintHorizontal_bias="0.133"
+          app:layout_constraintStart_toStartOf="@+id/tag_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/tag_block_view_task"
+          app:layout_constraintVertical_bias="0.485" />
+
+      <Spinner
+          android:id="@+id/text_tag_for_edit_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:maxLength="8"
+          android:maxLines="1"
+          android:text="(Tag)"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/tag_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/tag_block_view_task"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toStartOf="@+id/tag_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/tag_block_view_task"
+          app:layout_constraintVertical_bias="0.485" />
+
+
+      <ImageView
+          android:id="@+id/due_date_block_view_task"
+          android:layout_width="168dp"
+          android:layout_height="55dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="52dp"
+          app:layout_constraintBottom_toTopOf="@+id/description_block_view_task"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:srcCompat="@drawable/text_box_1" />
+
+
+      <TextView
+          android:id="@+id/text_due_date_title_for_view_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:text="Due Date:"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/due_date_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/due_date_block_view_task"
+          app:layout_constraintHorizontal_bias="0.088"
+          app:layout_constraintStart_toStartOf="@+id/due_date_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/due_date_block_view_task"
+          app:layout_constraintVertical_bias="0.485" />
+
+      <EditText
+          android:id="@+id/text_due_date_for_edit_task"
+          android:layout_width="78dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:maxLength="11"
+          android:maxLines="1"
+          android:text="(Due Date)"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/due_date_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/due_date_block_view_task"
+          app:layout_constraintHorizontal_bias="0.955"
+          app:layout_constraintStart_toStartOf="@+id/due_date_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/due_date_block_view_task"
+          app:layout_constraintVertical_bias="0.485" />
+
+      <ImageView
+          android:id="@+id/description_block_view_task"
+          android:layout_width="365dp"
+          android:layout_height="143dp"
+          android:scaleY="2"
+          app:layout_constraintBottom_toBottomOf="@+id/View_Task_Block"
+          app:layout_constraintEnd_toEndOf="@+id/View_Task_Block"
+          app:layout_constraintHorizontal_bias="0.6"
+          app:layout_constraintStart_toStartOf="@+id/View_Task_Block"
+          app:layout_constraintTop_toTopOf="@+id/View_Task_Block"
+          app:layout_constraintVertical_bias="0.862"
+          app:srcCompat="@drawable/text_box_1" />
+
+      <TextView
+          android:id="@+id/text_description_title_for_view_task"
+          android:layout_width="82dp"
+          android:layout_height="20dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:text="Description:"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="@+id/description_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/description_block_view_task"
+          app:layout_constraintHorizontal_bias="0.495"
+          app:layout_constraintStart_toStartOf="@+id/description_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/description_block_view_task"
+          app:layout_constraintVertical_bias="0.064" />
+
+      <EditText
+          android:id="@+id/text_description_for_edit_task"
+          android:layout_width="270dp"
+          android:layout_height="80dp"
+          android:fontFamily="@font/fredokaone_regular"
+          android:maxLength="150"
+          android:maxLines="5"
+          android:text="(Description)"
+          android:textAlignment="gravity"
+          android:textColor="#FFFFFF"
+          android:textSize="12sp"
+          app:layout_constraintBottom_toBottomOf="@+id/description_block_view_task"
+          app:layout_constraintEnd_toEndOf="@+id/description_block_view_task"
+          app:layout_constraintHorizontal_bias="0.475"
+          app:layout_constraintStart_toStartOf="@+id/description_block_view_task"
+          app:layout_constraintTop_toTopOf="@+id/description_block_view_task"
+          app:layout_constraintVertical_bias="0.562" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </FrameLayout>
+
+  <Button
+      android:id="@+id/submit_edit"
+      android:layout_width="296dp"
+      android:layout_height="69dp"
+      android:text="Submit"
+      android:textSize="25sp"
+      android:fontFamily="@font/fredokaone_regular"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
