@@ -35,6 +35,7 @@ public class Task implements Serializable {//will add a description variable lat
     Boolean notify_me;
     Boolean completed = false;
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     Task(String name, String description, Tag associated_tag, int start_time, int end_time, int day, int month, int year, Boolean notify_me){
         this.name = name;
@@ -45,8 +46,15 @@ public class Task implements Serializable {//will add a description variable lat
         this.notify_me = notify_me;
         this.start_time = start_time; //in minutes from 0:00
     }
-
-
+    public void completeTask(){
+        this.completed = true;
+    }
+    public void uncompleteTask(){
+        this.completed = false;
+    }
+    public Boolean getCompleted(){
+        return this.completed;
+    }
     public void createTask(){
         //deprecated. use constructor
     }
