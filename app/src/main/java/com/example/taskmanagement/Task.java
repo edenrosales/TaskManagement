@@ -46,6 +46,17 @@ public class Task implements Serializable {//will add a description variable lat
         this.start_time = start_time; //in minutes from 0:00
     }
 
+    public void completeTask(){
+        this.completed = true;
+    }
+    public void uncompleteTask(){
+        this.completed = false;
+    }
+    public boolean getCompleted(){
+        return this.completed;
+    }
+
+
     //empty constructor for static view Task Task
     @RequiresApi(api = Build.VERSION_CODES.O)
     Task(){
