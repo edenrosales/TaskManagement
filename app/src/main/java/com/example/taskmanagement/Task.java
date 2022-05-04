@@ -46,6 +46,17 @@ public class Task implements Serializable {//will add a description variable lat
         this.start_time = start_time; //in minutes from 0:00
     }
 
+    //empty constructor for static view Task Task
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    Task(){
+        this.name = "";
+        this.description = "";
+        this.associated_tag = MainActivity.all;
+        this.start_time = 0;
+        this.end_time = 0;
+        this.due_date = LocalDate.now();
+        this.notify_me = false;
+    }
 
     public void createTask(){
         //deprecated. use constructor
