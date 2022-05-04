@@ -250,6 +250,26 @@ public class TaskList {
         }
         return output;
     }
+    //returns true if the task was deleted, false if not
+    //deletes the first task that is equal to the one input into the funciton
+    public Boolean deleteTask(Task to_delete){
+        for(int i =0; i<this.Tasks.size(); i++){
+            if(this.Tasks.get(i).equals(to_delete)){
+                this.Tasks.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public Boolean deleteTag(Tag to_delete){
+        for(int i =0; i<this.Tags.size();i++){
+            if(this.Tags.get(i).equals(to_delete)){
+                this.Tags.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
