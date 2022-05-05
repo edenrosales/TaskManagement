@@ -39,6 +39,16 @@ class TaskListTest {
 
     }
     @Test
+    void deleteTask(){
+        Tag tagOne = new Tag("School",0);
+        Task taskOne = new Task("B380 project","Do some work", tagOne,0,1,1,1,2022,false);
+        TaskList main = new TaskList();
+        main.Tasks.add(taskOne);
+//        main.deleteTask(taskOne);
+        assertEquals(null,main.Tasks);
+
+    }
+    @Test
     void sortTasksSettingTwo() {
 
         /*Tag tagOne = new Tag();

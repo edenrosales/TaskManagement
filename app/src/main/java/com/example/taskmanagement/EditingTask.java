@@ -84,7 +84,16 @@ public class EditingTask extends AppCompatActivity {
                 dialog.show();
             }
         });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.taskList.Tasks.remove(MainActivity.selected_task);
+                openMainView();
 
+                //delete button code  for selected_task goes here
+                //MainActivity.taskList.TodoListTasks.remove();
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -128,13 +137,8 @@ public class EditingTask extends AppCompatActivity {
             }
         });
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //delete button code  for selected_task goes here
-                //MainActivity.taskList.TodoListTasks.remove();
-            }
-        });
+
+
     }
 
     public void openMainView(){

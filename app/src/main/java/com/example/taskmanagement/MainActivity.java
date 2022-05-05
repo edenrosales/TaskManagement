@@ -45,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.listView);
         TodoList todo = new TodoList();
         //getting todoListTasks
-        todo.list = taskList.getTodoListTasks();
+        todo.list = taskList.Tasks;
         //get the current date
         today = LocalDate.now();
         //10 tasks will be added here
         taskList.Tags.add(new Tag("Tag 1", 42000));
         taskList.Tags.add(new Tag("Tag 2", 32000));
-        todo.list.add(new Task("Task 1", "Description 1", taskList.Tags.get(0), 8, 10, 3,5,2022,false));
-        todo.list.add(new Task("Task 2", "Description 2", taskList.Tags.get(0), 11, 12, 3,5,2022,false));
+        todo.list.add(new Task("Task 1", "Description 1", taskList.Tags.get(0), 8, 10, 4,5,2022,false));
+        todo.list.add(new Task("Task 2", "Description 2", taskList.Tags.get(0), 11, 12, 4,5,2022,false));
         todo.list.add(new Task("Task 3", "Description 3", taskList.Tags.get(1), 1, 2, 4,5,2022,false));
 
         //our todoList Tasks will be filtered by date first, the last parameter, 1, is todoList View
