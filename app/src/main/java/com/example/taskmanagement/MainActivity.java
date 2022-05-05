@@ -14,6 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -24,7 +28,8 @@ import java.util.LinkedList;
 public class MainActivity extends AppCompatActivity {
     private FloatingActionButton button;
     private FloatingActionButton tagButton;
-    ListView listview;
+    //ListView listview;
+
     String name;
     String description;
     LocalDate today;
@@ -42,19 +47,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listview = (ListView) findViewById(R.id.listView);
+//        listview = (ListView) findViewById(R.id.listView);
         TodoList todo = new TodoList();
         //getting todoListTasks
-
-        //get the current date
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
 
         //10 tasks will be added here
         taskList.Tags.add(new Tag("Tag 1", 42000));
         taskList.Tags.add(new Tag("Tag 2", 32000));
         taskList.Tasks.add(new Task("Task 1", "Description 1", taskList.Tags.get(0), 8, 10, 5,5,2022,false));
-        taskList.Tasks.add(new Task("Task 2", "Description 2", taskList.Tags.get(0), 11, 12, 4,5,2022,false));
-        taskList.Tasks.add(new Task("Task 3", "Description 3", taskList.Tags.get(1), 1, 2, 4,5,2022,false));
+        taskList.Tasks.add(new Task("Task 2", "Description 2", taskList.Tags.get(0), 11, 12, 5,5,2022,false));
+        taskList.Tasks.add(new Task("Task 3", "Description 3", taskList.Tags.get(1), 1, 2, 5,5,2022,false));
         todo.list = taskList.Tasks;
         today = LocalDate.now();
         //our todoList Tasks will be filtered by date first, the last parameter, 1, is todoList View
@@ -71,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
             t.addTab(t.newTab().setText(taskList.Tags.get(i).name));
         }
 
+        recyclerAdapter adapter = new recyclerAdapter(this,todo.getList());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //Tab bar adapter, this will give us the opportunity to access each tab item's function
         ArrayAdapter tabAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, todo.list);
         t.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -84,20 +91,21 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(tab.getText().toString());
                         if(tab.getText().toString().equals("All")){
                             //this is all, we refresh main activity// it will go back to start...database isn't running so all will work properly once database is working
-                            TaskBoxAdapter specialAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, todo.list);
-                            listview.setAdapter(specialAdapter);
-                            accessList(listview);
+                            recyclerAdapter adapter = new recyclerAdapter(MainActivity.this,todo.getList());
+                            recyclerView.setAdapter(adapter);
+                            //accessList(listview); this is for opening up view
                         }
                         //for a specific tag
                         else{
-                            ListView special_list = (ListView) findViewById(R.id.listView);
+//                            ListView special_list = (ListView) findViewById(R.id.listView);
                             String name = tab.getText().toString();
                             //System.out.println(name);
                             Tag tag = Tag.findName(taskList.getTags(), name);
                             LinkedList<Task> special_tasks = getTasks(todo.getList(), tag);
-                            TaskBoxAdapter specialAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, special_tasks);
-                            listview.setAdapter(specialAdapter);
-                            accessList(listview);
+                            recyclerAdapter adapter = new recyclerAdapter(MainActivity.this,special_tasks);
+                            recyclerView.setAdapter(adapter);
+
+                            //accessList(listview); this was for opening up view
                         }
                     }
                 });
@@ -115,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
         });
         //call for adapter to show list of task objects in a list
         //TaskBoxAdapter tAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, taskList.TodoListTasks );
-        TaskBoxAdapter tAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, todo.list);
-        listview.setAdapter(tAdapter);
+//        TaskBoxAdapter tAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, todo.list);
+//        listview.setAdapter(tAdapter);
 
         //
-        accessList(listview);
+//        accessList(listview);
         //
 
         //listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -175,6 +183,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    
 }
 
