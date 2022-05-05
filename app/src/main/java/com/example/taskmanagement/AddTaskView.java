@@ -139,7 +139,7 @@ public class AddTaskView extends AppCompatActivity{
                 new_task = new Task(name, description, current_tag, start_time, end_time, day, month + 1,year ,false);
                 //insert into database taskList call goes here
                 MainActivity.taskList.Tasks.add(new_task);
-                MainActivity.taskList.TodoListTasks.add(new_task);
+//                MainActivity.taskList.TodoListTasks.add(new_task);
                 System.out.println("TASKLIST SIZE: " + MainActivity.taskList.Tasks.size());
                 //call to return to main Activity (To--DoList View)
                 is_Task_added = true;
