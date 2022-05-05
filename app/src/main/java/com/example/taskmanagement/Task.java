@@ -19,13 +19,13 @@ public class Task implements Serializable {//will add a description variable lat
 
     //**Variables that are going to be stored will be marked with a '@'. If missing something, let me (Pouria) know**
 
-        @ColumnInfo(name = "description")
+//        @ColumnInfo(name = "description")
     String description;
 
-        @ColumnInfo(name = "name")
+//        @ColumnInfo(name = "name")
     String name;
 
-        @ColumnInfo(name = "tag")
+//        @ColumnInfo(name = "tag")
     Tag associated_tag;
 
     //I don't know if storing these will be needed, not sure...
