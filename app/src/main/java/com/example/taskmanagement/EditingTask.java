@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +14,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.LinkedList;
 
 public class EditingTask extends AppCompatActivity {
-    String name, start_time, end_time, due_date, tag, description;
+    String name, due_date, tag, description;
+    int start_time, end_time;
     LocalDate due_Date;
     int day, month, year;
     boolean is_Task_edited = false;
@@ -29,6 +32,7 @@ public class EditingTask extends AppCompatActivity {
     Button submit, delete;
     Spinner mySpinner;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,13 @@ public class EditingTask extends AppCompatActivity {
         start_timeInput = (EditText) findViewById(R.id.text_start_time_for_edit_task);
         end_timeInput = (EditText) findViewById(R.id.text_end_time_for_edit_task);
         descriptionInput = (EditText) findViewById(R.id.text_description_for_edit_task);
+        /************************************************************************/
+        //setting text for each item before editing
+        nameInput.setText(MainActivity.selected_task.getName().toString());
+        descriptionInput.setText(MainActivity.selected_task.getDescription().toString());
+        start_timeInput.setText(Integer.valueOf(MainActivity.selected_task.getStart()).toString());
+        end_timeInput.setText(Integer.valueOf(MainActivity.selected_task.getEnd()).toString());
+
         /**************************************************************************/
         //declare spinner for tag
         Spinner mySpinner = (Spinner) findViewById(R.id.text_tag_for_edit_task);
@@ -78,7 +89,42 @@ public class EditingTask extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+                name = nameInput.getText().toString();
+                description = descriptionInput.getText().toString();
+                tag = mySpinner.toString();
+                start_time = Integer.valueOf(start_timeInput.getText().toString());
+                end_time = Integer.valueOf(end_timeInput.getText().toString());
+                showText(name);
+                showText(String.valueOf(start_time));
+                showText(String.valueOf(end_time));
+                showText(description);
                 //edit setter code for selected_task goes here
+                if(!name.equals(MainActivity.selected_task.getName())){
+                    //set name equal to selected_task name
+                    MainActivity.selected_task.setName(name);
+                }
+                if(!description.equals(MainActivity.selected_task.getDescription())){
+                    MainActivity.selected_task.setDescription(description);
+                }
+                if((Integer) start_time != MainActivity.selected_task.getStart()){
+                    MainActivity.selected_task.setStart(start_time);
+                }
+                if((Integer) end_time != MainActivity.selected_task.getEnd()){
+                    MainActivity.selected_task.setEnd(end_time);
+                }
+                //for tag
+
+
+                //setter for dueDate
+                //int new_day = MainActivity.selected_task.getDue().getDayOfMonth();
+                //int new_month = MainActivity.selected_task.getDue().getMonthValue();
+                //int new_year = MainActivity.selected_task.getDue().getYear();
+                //String date = new_day + "/" + new_month + "/" + new_year;
+                //if(date.equals(day+"/"+month+"/"+year)){
+                //    MainActivity.selected_task.setDue(day, month, year);
+                //}
+
+                openMainView();
             }
         });
 
@@ -90,6 +136,16 @@ public class EditingTask extends AppCompatActivity {
             }
         });
     }
+
+    public void openMainView(){
+        Intent intent = new Intent(EditingTask.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void showText(String text){
+        Toast.makeText(EditingTask.this, text, Toast.LENGTH_SHORT).show();
+    }
+
 
 
 }
