@@ -17,7 +17,7 @@ import java.util.LinkedList;
 
 public class TaskList {
     LinkedList<Task> Tasks = new LinkedList<>();
-//    LinkedList<Task> TodoListTasks = new LinkedList<>();
+    LinkedList<Task> TodoListTasks = new LinkedList<>();
     LinkedList<Task> CalendarTasks = new LinkedList<>();
     LinkedList<Tag> Tags = new LinkedList<>();
 
@@ -32,9 +32,9 @@ public class TaskList {
     public LinkedList<Task> getTaskList(){
         return Tasks;
     }
-//    public LinkedList<Task> getTodoListTasks(){
-//        return TodoListTasks;
-//    }
+    public LinkedList<Task> getTodoListTasks(){
+        return TodoListTasks;
+    }
     public LinkedList<Task> getCalendarTasks(){ return CalendarTasks; }
     public LinkedList<Tag> getTags(){return Tags;}
 
@@ -52,7 +52,7 @@ public class TaskList {
                 T = this.Tasks;
                 break;
             case 2:
-//                T = this.TodoListTasks;
+                T = this.TodoListTasks;
                 break;
             case 3:
                 T = this.CalendarTasks;

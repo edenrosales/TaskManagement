@@ -45,30 +45,27 @@ public class MainActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.listView);
         TodoList todo = new TodoList();
         //getting todoListTasks
-//        todo.list = taskList.Tasks;
+        todo.list = taskList.Tasks;
         //get the current date
-//        today = LocalDate.now();
+        today = LocalDate.now();
         //10 tasks will be added here
         taskList.Tags.add(new Tag("Tag 1", 42000));
         taskList.Tags.add(new Tag("Tag 2", 32000));
-        taskList.Tasks.add(new Task("Task 1", "Description 1", taskList.Tags.get(0), 8, 10, 4,5,2022,false));
-        taskList.Tasks.add(new Task("Task 2", "Description 2", taskList.Tags.get(0), 11, 12, 4,5,2022,false));
-        taskList.Tasks.add(new Task("Task 3", "Description 3", taskList.Tags.get(1), 1, 2, 4,5,2022,false));
-        today = LocalDate.now();
-        todo.list = taskList.Tasks;
+        todo.list.add(new Task("Task 1", "Description 1", taskList.Tags.get(0), 8, 10, 4,5,2022,false));
+        todo.list.add(new Task("Task 2", "Description 2", taskList.Tags.get(0), 11, 12, 4,5,2022,false));
+        todo.list.add(new Task("Task 3", "Description 3", taskList.Tags.get(1), 1, 2, 4,5,2022,false));
 
         //our todoList Tasks will be filtered by date first, the last parameter, 1, is todoList View
         //taskList.TodoListTasks = filterTasksByDate(taskList.Tasks, today, 1);
         //filtering todo list tasks by date
         todo.list = filterTasksByDate(todo.list, today, 1);
-        todo.tags = parseTags(todo.list);
         //Need to display current input tags
         TabLayout t = (TabLayout) findViewById(R.id.tag_tab_layout);
             //Find the all relevant tags that are represented all items in todoList...Only need one tag for display, since multiple tasks can share a tag
         //LinkedList<Tag> current_tags = parseTags(taskList.TodoListTasks);
             //for each item in current tags, make a new tab in tab layout
         for(int i = 0; i < taskList.Tags.size(); i++){
-            t.addTab(t.newTab().setText(todo.tags.get(i).name));
+            t.addTab(t.newTab().setText(taskList.Tags.get(i).name));
         }
 
         //Tab bar adapter, this will give us the opportunity to access each tab item's function
@@ -170,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 //if a task item is clicked, code will jump here
                 //pass through only primitive types of data, since classes wont work with this implementation
                 //must pass name, description, start_time, end_time, day, month, year
-                selected_task = taskList.Tasks.get(i);
+                selected_task = taskList.TodoListTasks.get(i);
                 viewTaskView();
             }
         });
