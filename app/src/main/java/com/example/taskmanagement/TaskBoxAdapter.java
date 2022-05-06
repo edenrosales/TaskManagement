@@ -14,39 +14,55 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
-public class TaskBoxAdapter extends ArrayAdapter<Task>  {
+public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHolder> {
     private Context mContext;
     private int mResource;
+    private List<Task> tasks = new ArrayList<>();
 
-    public TaskBoxAdapter(@NonNull Context context, int resource, @NonNull LinkedList<Task> objects) {
-        super(context, resource, objects);
-        this.mContext = context;
-        this.mResource = resource;
+    public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_task, parent, false);
+        return new TaskHolder(itemView);
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        String name = getItem(position).getName();
-        String description = getItem(position).getDescription();
-        Integer sT= getItem(position).getStart(); String startTime = sT.toString();
-        Integer eT = getItem(position).getEnd(); String endTime = eT.toString();
-        getItem(position).associated_tag.getColor();
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        convertView = layoutInflater.inflate(mResource, parent, false);
-        TextView txtName = convertView.findViewById(R.id.task_list_name);
-        TextView txtDes = convertView.findViewById(R.id.task_list_description);
-        TextView txtStart = convertView.findViewById(R.id.task_list_start);
-        TextView txtEnd = convertView.findViewById(R.id.task_list_end);
-        convertView.setBackgroundColor(getItem(position).getTag().getColor());
-        txtName.setText(name);
-        txtDes.setText(description);
-        txtStart.setText(startTime);
-        txtEnd.setText(endTime);
-
-        //txtName.setText(getItem(position).getName());
-        return convertView;
+    public void onBindViewHolder(@NonNull TaskBoxAdapter.TaskHolder holder, int position) {
+        Task currentTask = tasks.get(position);
+        holder.textViewName.setText(currentTask.getName());
+        holder.textViewDescription.setText(currentTask.getDescription());
+        holder.textViewStart.setText(String.valueOf(currentTask.getStart()));
+        holder.textViewEnd.setText(String.valueOf(currentTask.getEnd()));
     }
+
+
+    @Override
+    public int getItemCount() {
+        return tasks.size();
+    }
+
+
+    class TaskHolder extends RecyclerView.ViewHolder{
+        private TextView textViewName;
+        private TextView textViewDescription;
+        private TextView textViewStart;
+        private TextView textViewEnd;
+
+        public TaskHolder(@NonNull View itemView) {
+            super(itemView);
+            textViewName = itemView.findViewById(R.id.task_list_name);
+            textViewDescription = itemView.findViewById(R.id.task_list_description);
+            textViewStart = itemView.findViewById(R.id.task_list_start);
+            textViewEnd = itemView.findViewById(R.id.task_list_end);
+        }
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
+
 }

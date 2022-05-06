@@ -2,6 +2,7 @@ package com.example.taskmanagement;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,16 +18,31 @@ import androidx.room.Update;
 
 @Dao
 public interface DatabaseDAO {
-    @Query("SELECT * FROM task") //Reads Tasks
-    List<Task> getAll();
-
     @Insert
-    void insert(Task task);
+    void insertTask(Task task);
 
     @Delete
-    void delete(Task task);
+    void deleteTask(Task task);
 
     @Update
-    void update(Task task); //Will fix this soon, some reason, editing does not save
+    void updateTask(Task task); //Will fix this soon, some reason, editing does not save
 
+    @Query("DELETE FROM task_table")
+    void deleteAllTasks();
+
+    @Query("SELECT*FROM task_table ORDER BY start_time DESC")
+    LiveData<List<Task>> getAllTasks();
+
+    @Insert
+    void insertTag(Tag tag);
+
+    @Delete
+    void deleteTag(Tag tag);
+
+    @Update
+    void updateTag(Tag tag);
+
+    //gets tags listed in aplhabetical order
+    @Query("SELECT*FROM tag_table ORDER by NAME DESC")
+    LiveData<List<Tag>> getAllTags();
 }

@@ -26,13 +26,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <ListView
-                    android:id="@+id/listView"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_View"
                     android:layout_width="match_parent"
                     android:layout_height="509dp"
                     android:divider="@color/black"
                     android:dividerHeight="1dp"
-                    />
+                    tools:listitem="@layout/each_task" />
             </LinearLayout>
         </ScrollView>
 
@@ -91,31 +91,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tag_tab_layout"
-                android:layout_width="339dp"
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/tag_tab_layout"
+               app:flow_horizontalGap="10dp"
+               app:barrierDirection="end"
+               android:background="@color/black"
+               android:padding="3.5dp"
+               android:layout_width="339dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/create_Tag_button"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tabMode="scrollable">
+                tools:listitem="@layout/tag_box">
 
                 <!--for these tabs could do a for loop that iterates through the tag_list class for n items
             and for each item -->
                 <!--#runs the com code but just replaces the text with the name variable of the tag objects
             -->
 
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/all_tags"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="All" />
 
-
-            </com.google.android.material.tabs.TabLayout>
+            </androidx.recyclerview.widget.RecyclerView>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/create_Tag_button"

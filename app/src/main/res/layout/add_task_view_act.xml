@@ -172,22 +172,20 @@
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/time_for_add_task_view"
-                    app:layout_constraintEnd_toStartOf="@+id/end_time_input2"
+                    app:layout_constraintEnd_toStartOf="@+id/number_picker_end"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/start_time_input2"
+                    app:layout_constraintStart_toEndOf="@+id/number_picker_start"
                     app:layout_constraintTop_toTopOf="@+id/time_for_add_task_view"
                     app:layout_constraintVertical_bias="0.489" />
 
 
-                <EditText
-                    android:id="@+id/end_time_input2"
+                <NumberPicker
+                    android:id="@+id/number_picker_end"
                     android:layout_width="85dp"
                     android:layout_height="42dp"
                     android:ems="10"
                     android:inputType="time"
-                    android:text="(10:00)"
-                    android:textColor="#88FFFFFF"
-                    android:textSize="12sp"
+                    android:background="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/time_for_add_task_view"
                     app:layout_constraintEnd_toStartOf="@+id/time_for_add_task_view"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -195,14 +193,13 @@
                     app:layout_constraintTop_toTopOf="@+id/time_for_add_task_view"
                     app:layout_constraintVertical_bias="0.513" />
 
-                <EditText
-                    android:id="@+id/start_time_input2"
-                    android:layout_width="99dp"
-                    android:layout_height="35dp"
+                <NumberPicker
+                    android:id="@+id/number_picker_start"
+                    android:layout_width="96dp"
+                    android:layout_height="41dp"
+                    android:background="@android:color/white"
                     android:ems="10"
                     android:inputType="time"
-                    android:text="(8:00)"
-                    android:textColor="#88FFFFFF"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/time_for_add_task_view"
                     app:layout_constraintEnd_toStartOf="@+id/name_for_add_task_view_text9"
@@ -220,7 +217,7 @@
                     android:textColor="@android:color/holo_purple"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/tag_for_add_task_view4"
-                    app:layout_constraintEnd_toStartOf="@+id/start_time_input2"
+                    app:layout_constraintEnd_toStartOf="@+id/number_picker_start"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/time_for_add_task_view"
                     app:layout_constraintTop_toTopOf="@+id/time_for_add_task_view" />
