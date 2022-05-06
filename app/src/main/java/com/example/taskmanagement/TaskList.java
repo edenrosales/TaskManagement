@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 
 //import javax.lang.model.util.ElementScanner14;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class TaskList {
     LinkedList<Task> Tasks = new LinkedList<>();
     LinkedList<Task> TodoListTasks = new LinkedList<>();
@@ -273,3 +275,10 @@ public class TaskList {
     }
 
 }
+////this is to convert this string into a localdate
+//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+//LocalDate date = LocalDate.parse("5/5/2022",formatter);
+//
+////this is how to convert a LocalDate to a string
+////this is a LocalDate object that contains the date "5/5/2022"
+//String formattedDate = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));

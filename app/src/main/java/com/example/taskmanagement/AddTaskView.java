@@ -8,6 +8,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.method.CharacterPickerDialog;
 import android.util.Log;
@@ -106,8 +107,16 @@ public class AddTaskView extends AppCompatActivity{
                 //we call constructor here
                 name = nameInput.getText().toString();
                 //right now for testing lets do int 0-24 time... we can convert to float or double once we know display works
-                start_time = Integer.valueOf(start_timeInput.getText().toString());
-                end_time = Integer.valueOf(end_timeInput.getText().toString());
+                boolean digitsOnly1 = TextUtils.isDigitsOnly(start_timeInput.getText());
+                boolean digitsOnly2 = TextUtils.isDigitsOnly(end_timeInput.getText());
+//                start_time = Integer.valueOf(start_timeInput.getText().toString());
+//                end_time = Integer.valueOf(end_timeInput.getText().toString());
+                if(digitsOnly1){
+                    start_time = Integer.valueOf(start_timeInput.getText().toString());
+                }
+                if(digitsOnly2){
+                    end_time = Integer.valueOf(end_timeInput.getText().toString());
+                }
                 tag = mySpinner.toString();
                 for(int i = 0; i < MainActivity.taskList.getTags().size() ; i++){
                     if(MainActivity.taskList.Tags.get(i).name.equals(tag)){
@@ -136,6 +145,24 @@ public class AddTaskView extends AppCompatActivity{
                 showText(description);
                 //call constructor
                 //if tag == null set tag to "all"/default tag
+
+
+
+//                new_task = new Task(name,day,month,year,false);
+//                if(digitsOnly1){
+//                    new_task.setStart(start_time);
+//                }
+//                if(digitsOnly2){
+//                    new_task.setEnd(end_time);
+//                }
+//                if(description != null){
+//                    new_task.setDescription(description);
+//                }
+//                if(current_tag!= null){
+//                    new_task.setTag(current_tag);
+//                }
+
+//                if()
                 new_task = new Task(name, description, current_tag, start_time, end_time, day, month + 1,year ,false);
                 //insert into database taskList call goes here
                 MainActivity.taskList.Tasks.add(new_task);

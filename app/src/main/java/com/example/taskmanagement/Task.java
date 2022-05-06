@@ -45,7 +45,17 @@ public class Task implements Serializable {//will add a description variable lat
         this.notify_me = notify_me;
         this.start_time = start_time; //in minutes from 0:00
     }
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Task(String name, int day, int month, int year, Boolean notify_me){
+        this.name = name;
+        this.due_date = LocalDate.of(year,month,day);
+        this.notify_me = notify_me;
+        this.description = "";
+        this.associated_tag = null;
+        this.end_time = -1;
+        this.start_time = -1;
+        this.notify_me = false;
+    }
     public void completeTask(){
         this.completed = true;
     }
