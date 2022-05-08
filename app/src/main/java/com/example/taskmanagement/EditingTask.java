@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 public class EditingTask extends AppCompatActivity {
@@ -36,7 +35,7 @@ public class EditingTask extends AppCompatActivity {
     LocalDate due_Date;
     int day, month, year;
     boolean is_Task_edited = false;
-    Tag current_tag = new Tag("",0);
+    Tag current_tag = new Tag("", R.color.teal_700);
     TextView tvSelectDate;
     EditText nameInput, start_timeInput, end_timeInput, tagInput , due_dateInput, descriptionInput, etSelectDate;
     Button submit, delete,toggleCompleted;

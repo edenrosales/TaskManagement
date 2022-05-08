@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         String name = data.getStringExtra("EXTRA_NAME");
                         //new_tag_name = name;
                         int color = data.getIntExtra("EXTRA_COLOR", 1);
-                        Tag tag = new Tag(name,color);
+                        Tag tag = new Tag(name, color);
                         taskViewModel.insertTag(tag);
                         Toast.makeText(MainActivity.this, "Tag Saved", Toast.LENGTH_SHORT).show();
                         is_new_tag_added = true;

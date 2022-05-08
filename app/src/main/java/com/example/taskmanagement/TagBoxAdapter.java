@@ -1,6 +1,9 @@
 package com.example.taskmanagement;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.shapes.Shape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +33,9 @@ public class TagBoxAdapter extends RecyclerView.Adapter<TagBoxAdapter.TagHolder>
     public void onBindViewHolder(@NonNull TagBoxAdapter.TagHolder holder, int position) {
         Tag currentTag = tags.get(position);
         holder.tagName.setText(currentTag.getName());
-        holder.tagColor.setBackgroundColor(currentTag.getColor());
+        Drawable drawable = holder.tagColor.getDrawable();
+        drawable.setColorFilter(currentTag.getColor(), PorterDuff.Mode.SCREEN);
+        //holder.tagColor.setBackgroundColor(currentTag.getColor());
     }
 
 

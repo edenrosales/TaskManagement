@@ -5,24 +5,16 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHolder> {
@@ -45,20 +37,17 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
         holder.textViewStart.setText(String.valueOf(currentTask.getStart()));
         holder.textViewEnd.setText(String.valueOf(currentTask.getEnd()));
         holder.textViewDueDate.setText(currentTask.getDateToString());
-        holder.backDrop.getDrawable().setColorFilter(new PorterDuffColorFilter(currentTask.getTag().getColor(), PorterDuff.Mode.DST));
+        Drawable drawable = holder.taskColor.getDrawable();
+        drawable.setColorFilter(currentTask.getTag().getColor(), PorterDuff.Mode.SCREEN);
+
+        /*
         if(currentTask.getCompleted()){
-            holder.backDrop.setBackgroundColor(Color.parseColor("#00FF00"));
+            holder.taskColor.setBackgroundColor(Color.parseColor("#00FF00"));
         }
         else{
-            holder.backDrop.setBackgroundColor(Color.parseColor("#000000"));
+            holder.taskColor.setBackgroundColor(Color.parseColor("#000000"));
         }
-        //holder.backDrop.getDrawable().
-        //View backgroundView = holder.backDrop.findViewById(R.id.task_box);
-
-        //backgroundView.setBackgroundColor(currentTask.getTag().getColor());
-        //holder.backDrop.getBackground().setColorFilter(currentTask.getTag().getColor()
-        //, PorterDuff.Mode.SRC);
-        //holder.backDrop.setBackgroundColor(currentTask.getTag().getColor());
+         */
     }
 
 
@@ -74,7 +63,7 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
         private TextView textViewStart;
         private TextView textViewEnd;
         private TextView textViewDueDate;
-        private ImageView backDrop;
+        private ImageView taskColor;
 
         public TaskHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,7 +72,7 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
             textViewStart = itemView.findViewById(R.id.task_list_start);
             textViewEnd = itemView.findViewById(R.id.task_list_end);
             textViewDueDate = itemView.findViewById(R.id.task_list_due_date_text);
-            backDrop = itemView.findViewById(R.id.task_background);
+            taskColor = itemView.findViewById(R.id.task_background);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

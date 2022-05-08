@@ -1,11 +1,8 @@
 package com.example.taskmanagement;
 
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -60,6 +57,10 @@ public class Tag implements Parcelable {
             return new Tag[size];
         }
     };
+
+
+
+
 
     //ID getter & Setters
     public int getId() { return id; }

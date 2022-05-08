@@ -90,7 +90,8 @@ public class CreateTag extends AppCompatActivity {
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 defaultColor = color;
                 tagColorBackground.setBackgroundColor(defaultColor);
-                color = Integer.valueOf(defaultColor);
+                color = defaultColor;
+                //color = Integer.valueOf(defaultColor);
                 System.out.println("Value of color is: " + defaultColor);
 
             }
@@ -115,7 +116,8 @@ public class CreateTag extends AppCompatActivity {
         });
         if(is_tag_added == true){
             data.putExtra("EXTRA_NAME", name);
-            data.putExtra("EXTRA_COLOR", color);
+            data.putExtra("EXTRA_COLOR", defaultColor);
+            //data.putExtra("EXTRA_COLOR", color);
             setResult(RESULT_OK, data);
             finish();
         }
