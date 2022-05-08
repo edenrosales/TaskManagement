@@ -16,10 +16,12 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.time.LocalDate;
@@ -182,6 +184,20 @@ public class AddTaskView extends AppCompatActivity{
 
 
                 saveNote();
+            }
+        });
+
+        //TODO:WORK ON THIS LATER
+        Switch aSwitch = findViewById(R.id.switch1);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    Log.d("XXXXXXX","IT WORKS");
+                }
+                else{
+                    Log.d("ZZZZZZZZ","IT IS OFF");
+                }
             }
         });
 
