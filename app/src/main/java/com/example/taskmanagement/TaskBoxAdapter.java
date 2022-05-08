@@ -1,10 +1,13 @@
 package com.example.taskmanagement;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -43,6 +46,12 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
         holder.textViewEnd.setText(String.valueOf(currentTask.getEnd()));
         holder.textViewDueDate.setText(currentTask.getDateToString());
         holder.backDrop.getDrawable().setColorFilter(new PorterDuffColorFilter(currentTask.getTag().getColor(), PorterDuff.Mode.DST));
+        if(currentTask.getCompleted()){
+            holder.backDrop.setBackgroundColor(Color.parseColor("#00FF00"));
+        }
+        else{
+            holder.backDrop.setBackgroundColor(Color.parseColor("#000000"));
+        }
         //holder.backDrop.getDrawable().
         //View backgroundView = holder.backDrop.findViewById(R.id.task_box);
 
@@ -86,6 +95,20 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
                     }
                 }
             });
+//            itemView.setOnTouchListener(new View.OnTouchListener(){
+//                GestureDetector gestureDetector = new GestureDetector(mContext.getApplicationContext(), new GestureDetector.SimpleOnGestureListener()){
+//                    @Override
+//                    public void setOnDoubleTapListener(OnDoubleTapListener onDoubleTapListener) {
+//                        System.out.println("double tap working");
+//                        super.setOnDoubleTapListener(onDoubleTapListener);
+//                    }
+//                };
+//                @Override
+//                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                    gestureDetector.onTouchEvent(motionEvent);
+//                    return false;
+//                }
+//            });
         }
     }
 

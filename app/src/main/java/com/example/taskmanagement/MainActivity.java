@@ -288,7 +288,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         addTaskButton = (FloatingActionButton) findViewById(R.id.button);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -321,8 +320,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewTaskView.class);
         startActivity(intent);
     }
-    
-
-    
 }
 

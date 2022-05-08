@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,7 +39,7 @@ public class EditingTask extends AppCompatActivity {
     Tag current_tag = new Tag("",0);
     TextView tvSelectDate;
     EditText nameInput, start_timeInput, end_timeInput, tagInput , due_dateInput, descriptionInput, etSelectDate;
-    Button submit, delete;
+    Button submit, delete,toggleCompleted;
     Spinner mySpinner;
     TaskViewModel taskViewModel;
     String selected_date;
@@ -60,6 +61,7 @@ public class EditingTask extends AppCompatActivity {
 
 
         //initalizing buttons
+        toggleCompleted = findViewById(R.id.completeTask);
         submit = findViewById(R.id.submit_edit);
         delete = findViewById(R.id.deleteTaskButton);
         //text input objects
@@ -76,6 +78,14 @@ public class EditingTask extends AppCompatActivity {
         end_timeInput.setText(Integer.valueOf(MainActivity.selected_task.getEnd()).toString());
         System.out.println(MainActivity.selected_task.getDateToString());
         due_dateInput.setText(MainActivity.selected_task.getDateToString());
+        if(MainActivity.selected_task.getCompleted()){
+            toggleCompleted.setText("Uncomplete");
+            toggleCompleted.setBackgroundColor(Color.parseColor("#00FF00"));
+        }
+        else{
+            toggleCompleted.setText("Complete");
+            toggleCompleted.setBackgroundColor(Color.parseColor("#FF0000"));
+        }
         /**************************************************************************/
         //declare spinner for tag
         Spinner mySpinner = (Spinner) findViewById(R.id.text_tag_for_edit_task);
@@ -166,9 +176,9 @@ public class EditingTask extends AppCompatActivity {
                     MainActivity.selected_task.setTag(MainActivity.selected_tag);
                 }
                 //this might be the problem
-                if(!selected_date.equals(date)){
-                    MainActivity.selected_task.setDue(year, month, day);
-                }
+//                if(!selected_date.equals(date)){
+//                    MainActivity.selected_task.setDue(year, month, day);
+//                }
 
                 Intent data = new Intent();
                 //set result code = -2
@@ -195,6 +205,27 @@ public class EditingTask extends AppCompatActivity {
                 //delete button code  for selected_task goes here
                 //MainActivity.taskList.TodoListTasks.remove();
                 deleteTask();
+            }
+        });
+        toggleCompleted.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                if(MainActivity.selected_task.getCompleted()){
+//                    System.out.println("No");
+                    MainActivity.selected_task.completed = false;
+                    toggleCompleted.setText("Uncomplete");
+
+                    toggleCompleted.setBackgroundColor(Color.parseColor("#00FF00"));
+                }
+                else if(!MainActivity.selected_task.getCompleted()){
+//                    System.out.println("Yes");
+                    MainActivity.selected_task.completed = true;
+                    toggleCompleted.setText("Complete");
+                    toggleCompleted.setBackgroundColor(Color.parseColor("#FF0000"));
+
+                }
             }
         });
     }
