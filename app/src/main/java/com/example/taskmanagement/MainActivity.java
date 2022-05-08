@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -12,20 +11,19 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
+    public static final int VIEW_NOTE_REQUEST = 2;
     private FloatingActionButton addTaskButton;
     private FloatingActionButton tagButton;
     String name;
@@ -36,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
     //selected task will be default until a use picks a task
     //public static Task selected_task = new Task("", "", new Tag(""), 0, 0, 0, 0, 0, false);
     public static TaskList taskList = new TaskList();
-    public static Tag all = new Tag("All", R.color.teal_700);
+    public static Tag selected_tag = new Tag("All", R.color.teal_700);
     /*******************/
     //@RequiresApi(api = Build.VERSION_CODES.O)
-    public static Task selected_task = new Task("","", all, 0,0,9,9,9999, false);
+    public static Task selected_task = new Task("","", selected_tag, 0,0,9,9,9999, false);
     /*************************/
 
 
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         int day = data.getIntExtra("EXTRA_DAY", 1);
                         int month = data.getIntExtra("EXTRA_MONTH", 1);
                         int year = data.getIntExtra("EXTRA_YEAR", 1);
-                        Task task = new Task(name, description, all, start_time, end_time, day, month, year, false);
+                        Task task = new Task(name, description, selected_tag, start_time, end_time, day, month, year, false);
                         taskViewModel.insertTask(task);
                         Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
                     }
@@ -92,6 +90,43 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+
+    ActivityResultLauncher<Intent> editTaskResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult activityResult) {
+                        //task will be deleted from the database
+                    switch(activityResult.getResultCode()){
+                        case -1: //task was deleted
+                            taskViewModel.deleteTask(selected_task);
+                            Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_SHORT).show();
+                            break;
+                        case -2: //task was edited
+                            taskViewModel.updateTask(selected_task);
+                            Toast.makeText(MainActivity.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                            break;
+                        default: //no option was selected
+                            Toast.makeText(MainActivity.this, "No Function Called", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+
+
+
+
+
+
+                    if(activityResult.getResultCode() == -1){
+                        //if tag was created
+                        taskViewModel.deleteTask(selected_task);
+                        Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this, "Task NOT Deleted", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
 
 
     //@RequiresApi(api = Build.VERSION_CODES.O)
@@ -222,6 +257,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //CODE BLOCK FOR WHEN AN TASK IS CLICKED
+        adapter.setOnItemClickListener(new TaskBoxAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Task task) {
+                Intent intent = new Intent(MainActivity.this, EditingTask.class);
+                intent.putExtra(EditingTask.EXTRA_ID, task.getId());
+                //intent.putExtra(EditingTask.EXTRA_TASK ,(Parcelable) task);
+                //intent.putExtra(EditingTask.EXTRA_TAG, (Parcelable) task.getTag());
+                selected_task = task;
+                editTaskResultLauncher.launch(intent);
+
+            }
+        });
+
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView myList = (RecyclerView) findViewById(R.id.tag_tab_layout);
@@ -266,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, CreateTag.class);
         createTagResultLauncher.launch(intent);
     }
+
     public void viewTaskView(){
         Intent intent = new Intent(this, ViewTaskView.class);
         startActivity(intent);

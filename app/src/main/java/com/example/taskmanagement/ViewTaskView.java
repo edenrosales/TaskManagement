@@ -11,33 +11,60 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class ViewTaskView extends AppCompatActivity {
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    private static final String TAG = "ViewTaskView";
+    public static String EXTRA_TASK =
+            "empty";
+    public static String EXTRA_ID =
+            "empty";
+    public static String EXTRA_START =
+            "empty";
+    public static String EXTRA_END =
+            "empty";
+    //public static String EXTRA_DUE_DATE =
+    //        "empty";
+    public static String EXTRA_DAY =
+            "empty";
+    public static String EXTRA_MONTH =
+            "empty";
+    public static String EXTRA_YEAR =
+            "empty";
+    public static String EXTRA_TAG =
+            "empty";
+
+
+    //@RequiresApi(api = Build.VERSION_CODES.O)
     //Task sel_task = new Task("","", new Tag(""), 0, 0, 0, 0, 0, false);
     String selected_task_name, selected_task_description, selected_task_start_time, selected_task_end_time, selected_task_due_date, selected_task_tag;
     TextView name, description, start_time, end_time, due_date, tag;
     Button editButton;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    //@RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task_view);
-        name = findViewById(R.id.text_name_view_task);
-        description = findViewById(R.id.text_description_for_view_task);
-        start_time = findViewById(R.id.text_start_time_for_view_task);
-        end_time = findViewById(R.id.text_end_time_for_view_task);
-        due_date = findViewById(R.id.text_due_date_for_view_task);
-        tag = findViewById(R.id.text_tag_for_view_task);
-        //set the task to be view to the task the user selected in the main activity
-        //name.setText(MainActivity.selected_task.getName().toString());
-        name.setText(MainActivity.selected_task.name.toString());
-        description.setText(MainActivity.selected_task.description.toString());
-        start_time.setText(Integer.valueOf(MainActivity.selected_task.start_time).toString());
-        end_time.setText(Integer.valueOf(MainActivity.selected_task.end_time).toString());
-        //due date we wil leave for now
-        tag.setText(MainActivity.selected_task.associated_tag.getName().toString());
-
-
+        /*
+            name = findViewById(R.id.text_name_view_task);
+            description = findViewById(R.id.text_description_for_view_task);
+            start_time = findViewById(R.id.text_start_time_for_view_task);
+            end_time = findViewById(R.id.text_end_time_for_view_task);
+            due_date = findViewById(R.id.text_due_date_for_view_task);
+            tag = findViewById(R.id.text_tag_for_view_task);
+            //set the task to be view to the task the user selected in the main activity
+            //name.setText(MainActivity.selected_task.getName().toString());
+            name.setText(MainActivity.selected_task.name.toString());
+            description.setText(MainActivity.selected_task.description.toString());
+            start_time.setText(Integer.valueOf(MainActivity.selected_task.start_time).toString());
+            end_time.setText(Integer.valueOf(MainActivity.selected_task.end_time).toString());
+            //due date we wil leave for now
+            tag.setText(MainActivity.selected_task.associated_tag.getName().toString());
+        */
+        //New code with live database:
+        Intent intent = getIntent();
+        //grab task from intent
+        intent.getParcelableExtra(EXTRA_TASK);
+        //grab tag from intent
+        intent.getParcelableExtra(EXTRA_TAG);
 
 
         //edit button has no functionality at the moment
