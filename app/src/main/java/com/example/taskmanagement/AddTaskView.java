@@ -27,7 +27,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class AddTaskView extends AppCompatActivity{
     private static final String TAG = "MainActivity";
     public static String EXTRA_TITLE =
@@ -76,7 +75,8 @@ public class AddTaskView extends AppCompatActivity{
 
         /**This code is for Notifications**/
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("addNotif111","addNotif111", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel("channel_id","channel name",NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("channel description");
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
@@ -169,10 +169,12 @@ public class AddTaskView extends AppCompatActivity{
                 //*/
 
                         //When task added, Notification pops up....
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(AddTaskView.this, "addNotif111");
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(AddTaskView.this,"channel_id");
+                        //builder.setSmallIcon(R.mipmap.ic_launcher);
+                        builder.setSmallIcon(R.drawable.ic_launcher_background);
                         builder.setContentTitle("Testing Title"); //header
                         builder.setContentText("This see"); //descrip
-                        builder.setSmallIcon(R.drawable.ic_launcher_background);
+                        builder.setPriority(NotificationCompat.PRIORITY_HIGH); //heads-up
                         builder.setAutoCancel(true);
 
                         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AddTaskView.this);
