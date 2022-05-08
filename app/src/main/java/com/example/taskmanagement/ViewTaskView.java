@@ -39,7 +39,6 @@ public class ViewTaskView extends AppCompatActivity {
 
 
 
-
         //edit button has no functionality at the moment
         //still need a design plan to go off from to edit parameters of tasks
         editButton = findViewById(R.id.editTaskButton);

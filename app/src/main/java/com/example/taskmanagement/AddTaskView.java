@@ -2,12 +2,18 @@ package com.example.taskmanagement;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -67,6 +73,13 @@ public class AddTaskView extends AppCompatActivity{
         editTextDescription = findViewById(R.id.description_input2);
         numberPickerStart = findViewById(R.id.number_picker_start);numberPickerStart.setMinValue(1); numberPickerStart.setMaxValue(12);
         numberPickerEnd = findViewById(R.id.number_picker_end); numberPickerEnd.setMinValue(1);  numberPickerEnd.setMaxValue(12);
+
+        /**This code is for Notifications**/
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("addNotif111","addNotif111", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
 
         /**************************************************************************/
@@ -154,7 +167,19 @@ public class AddTaskView extends AppCompatActivity{
                 //is_Task_added = true;
                 //openMainView();
                 //*/
-                    saveNote();
+
+                        //When task added, Notification pops up....
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(AddTaskView.this, "addNotif111");
+                        builder.setContentTitle("Testing Title"); //header
+                        builder.setContentText("This see"); //descrip
+                        builder.setSmallIcon(R.drawable.ic_launcher_background);
+                        builder.setAutoCancel(true);
+
+                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AddTaskView.this);
+                        managerCompat.notify(1,builder.build());
+
+
+                saveNote();
             }
         });
 
