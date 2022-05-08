@@ -116,7 +116,7 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
         this.tasks = tasks;
         notifyDataSetChanged();
     }
-    public interface  OnItemClickListener{
+    public interface OnItemClickListener{
         void onItemClick(Task task);
     }
 

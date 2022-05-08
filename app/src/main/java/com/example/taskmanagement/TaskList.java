@@ -38,6 +38,9 @@ public class TaskList {
     }
     public List<Task> getCalendarTasks(){ return CalendarTasks; }
     public List<Tag> getTags(){return Tags;}
+    public void setTasks(List<Task> tasks){
+        this.Tasks = tasks;
+    }
 
 
     //empty taskList()
@@ -184,7 +187,7 @@ public class TaskList {
     //this will get rid of all the Tasks that are not for the view/date in a given linkedlist
     //0 will be for calendar view
     //1 will be for the todolist view
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    //@RequiresApi(api = Build.VERSION_CODES.O)
     public static List<Task> filterTasksByDate(List<Task> input, LocalDate date, int setting){
         if(setting == 0){
             for(int i =input.size()-1; i>0;i--){

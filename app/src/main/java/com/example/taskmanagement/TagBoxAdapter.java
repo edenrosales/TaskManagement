@@ -18,6 +18,8 @@ public class TagBoxAdapter extends RecyclerView.Adapter<TagBoxAdapter.TagHolder>
     private Context mContext;
     private int mResource;
     private List<Tag> tags = new ArrayList<>();
+    private TagBoxAdapter.OnItemClickListener listener;
+
 
     public TagBoxAdapter.TagHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tag_box, parent, false);
@@ -46,6 +48,17 @@ public class TagBoxAdapter extends RecyclerView.Adapter<TagBoxAdapter.TagHolder>
             super(itemView);
             tagName = itemView.findViewById(R.id.tag_text_main);
             tagColor = itemView.findViewById(R.id.imageView_tag);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //current position we selected
+                    int position = getAdapterPosition();
+                    if(listener != null && position != RecyclerView.NO_POSITION){
+                        listener.onItemClick(tags.get(position));
+                    }
+                }
+            });
         }
     }
 
@@ -53,6 +66,15 @@ public class TagBoxAdapter extends RecyclerView.Adapter<TagBoxAdapter.TagHolder>
         this.tags = tags;
         notifyDataSetChanged();
     }
+
+    public interface  OnItemClickListener{
+        void onItemClick(Tag tag);
+    }
+
+    public void setOnItemClickListener(TagBoxAdapter.OnItemClickListener listener){
+        this.listener = listener;
+    }
+
 
     public List<Tag> getTags(){
         return tags;

@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int ADD_TASK_REQUEST = 1;
     //public static ActivityResult ac;
+
+    //Class that will communicate with the database for newly fetched data
     private TaskViewModel taskViewModel;
     //ADD TASK ACTIVITY RESULT LAUNCHER
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(MainActivity.this, "Task NOT Saved", Toast.LENGTH_SHORT).show();
-
                     }
                 }
             });
@@ -109,13 +110,8 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "No Function Called", Toast.LENGTH_SHORT).show();
                             break;
                     }
-
-
-
-
-
-
-                    if(activityResult.getResultCode() == -1){
+                        /*
+                        if(activityResult.getResultCode() == -1){
                         //if tag was created
                         taskViewModel.deleteTask(selected_task);
                         Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_SHORT).show();
@@ -123,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         Toast.makeText(MainActivity.this, "Task NOT Deleted", Toast.LENGTH_SHORT).show();
                     }
-
+                    */
                 }
             });
 
@@ -134,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TodoList todo = new TodoList();
+        //get date of calendars date
+        today = LocalDate.now();
         //getting todoListTasks
         //todo.list = taskList.getTodoListTasks();
         //get the current date
@@ -209,37 +207,6 @@ public class MainActivity extends AppCompatActivity {
         //TagBoxAdapter tagBoxAdapter = new TagBoxAdapter();
         //ArrayAdapter tabAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1);
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        //taskViewModel.getAllTags().observe(this, new Observer<List<Tag>>() {
-        //    @Override
-        //    public void onChanged(List<Tag> tags) {
-                //t.addTab(t.newTab().setText(new_tag_name));
-        //        tagBoxAdapter.setTags(tags);
-                //t.addTab(t.newTab().setText(tags.get(tags.size()).getName()));
-                //List<String> names = Tag.getListOfTagNamesLiveData(tags);
-                //if(is_new_tag_added){
-                //    t.addTab(t.newTab().setText(names.get(names.size() - 1)));
-                //}
-                //for(int i = 0;  i < names.size(); i++){
-                //    t.addTab(t.newTab().setText(names.get(i)));
-                //}
-                //here all tabs wil be made
-       //     }
-       // });
-        //TAB LAYOUT FOR TAGS
-        //List<Tag> tags = tagBoxAdapter.getTags();
-        //List<Tag> tags = taskViewModel.getAllTags().getValue();
-        //for(int i = 0; i < tags.size(); i++){
-        //    t.addTab(t.newTab().setText(tags.get(i).getName()));
-        //}
-        //LiveData<List<Tag>> tags = taskViewModel.getAllTags();
-        //LiveData<List<String>> tag_names = Tag.getListOfTagNamesLiveData(tags);
-        //couldnot find a method to add all items of list as a tab so we have to do it linearly
-        //List<String>list_tag_names = (List) tag_names;
-        //for(int i = 0; i < list_tag_names.size(); i++){
-            //make a tab for each item in the list of tags
-        //    t.addTab(t.newTab().setText(list_tag_names.get(i)));
-        //}
-
 
         //RECYCLER VIEW FOR TASKS
         RecyclerView recyclerView = findViewById(R.id.recycler_View);
@@ -253,11 +220,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Task> tasks) {
                 //sort here by date
-                taskList.Tasks = tasks;
-              adapter.setTasks(tasks);
-
+                //taskList.Tasks = tasks;
+                taskList.setTasks(tasks);
+                taskList.TodoListTasks = taskList.getTaskList();
+                //we filter the tasks by date here
+                taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTodoListTasks(), LocalDate.now(), 1);
+              //adapter.setTasks(tasks);
+                adapter.setTasks(taskList.getTodoListTasks());
             }
         });
+
+
 
         //CODE BLOCK FOR WHEN AN TASK IS CLICKED
         adapter.setOnItemClickListener(new TaskBoxAdapter.OnItemClickListener() {
@@ -288,6 +261,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //CODE BLOCK FOR WHEN AN TAG IS CLICKED
+        tagBoxAdapter1.setOnItemClickListener(new TagBoxAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Tag tag) {
+                //if the tag selected is the first tag in the list (All)
+                if(tag.getName().equals("All")){
+                    //do not sort, just display all todo list tasks
+                    taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTaskList(), LocalDate.now(), 1);
+                    adapter.setTasks(taskList.getTodoListTasks());
+                }
+                //otherwise we return a list of tasks with the respective tag and display them in recycler view
+                else{
+                    taskList.TodoListTasks  = TaskList.getTasks(taskList.getTodoListTasks(), tag);
+                    //Reset original task adapter (adapter)
+                    adapter.setTasks(taskList.getTodoListTasks());
+                }
+            }
+        });
+
+
         addTaskButton = (FloatingActionButton) findViewById(R.id.button);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,15 +303,8 @@ public class MainActivity extends AppCompatActivity {
 
     int current_date;
     public void createTagView(){
-        //Intent intent = new Intent(this, CreateTag.class);
-        //startActivity(intent);
         Intent intent = new Intent(MainActivity.this, CreateTag.class);
         createTagResultLauncher.launch(intent);
-    }
-
-    public void viewTaskView(){
-        Intent intent = new Intent(this, ViewTaskView.class);
-        startActivity(intent);
     }
 }
 

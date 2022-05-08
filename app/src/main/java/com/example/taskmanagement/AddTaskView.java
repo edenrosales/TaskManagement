@@ -86,9 +86,13 @@ public class AddTaskView extends AppCompatActivity{
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(AddTaskView.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month + 1;
-                        String date = day+"/"+month+"/"+year;
+                    public void onDateSet(DatePicker view, int selected_year, int selected_month, int selected_day) {
+                        selected_month = selected_month + 1;
+                        //was day instead of dayOfMonth, this might work
+                        day = selected_day;////
+                        month= selected_month;
+                        year = selected_year;
+                        String date = selected_day+"/"+selected_month+"/"+selected_year;
                         tvSelectDate.setText(date);
                     }
                 },year, month, day);
@@ -144,6 +148,7 @@ public class AddTaskView extends AppCompatActivity{
             Toast.makeText(this, "Please Insert a name and description", Toast.LENGTH_SHORT).show();
             return;
         }
+        //month = month + 1;
         Intent data = new Intent();
         data.putExtra("EXTRA_NAME", title);
         data.putExtra("EXTRA_DESCRIPTION", description);
