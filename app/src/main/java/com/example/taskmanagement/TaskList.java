@@ -11,15 +11,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 
 //import javax.lang.model.util.ElementScanner14;
 
 public class TaskList {
-    LinkedList<Task> Tasks = new LinkedList<>();
-    LinkedList<Task> TodoListTasks = new LinkedList<>();
-    LinkedList<Task> CalendarTasks = new LinkedList<>();
-    LinkedList<Tag> Tags = new LinkedList<>();
+    List<Task> Tasks = new LinkedList<>();
+    List<Task> TodoListTasks = new LinkedList<>();
+    List<Task> CalendarTasks = new LinkedList<>();
+    List<Tag> Tags = new LinkedList<>();
 
 
     //view determines the LinkedList this function searches
@@ -29,14 +30,14 @@ public class TaskList {
     public TaskList(LinkedList<Task> input){
         this.Tasks = input;
     }
-    public LinkedList<Task> getTaskList(){
+    public List<Task> getTaskList(){
         return Tasks;
     }
-    public LinkedList<Task> getTodoListTasks(){
+    public List<Task> getTodoListTasks(){
         return TodoListTasks;
     }
-    public LinkedList<Task> getCalendarTasks(){ return CalendarTasks; }
-    public LinkedList<Tag> getTags(){return Tags;}
+    public List<Task> getCalendarTasks(){ return CalendarTasks; }
+    public List<Tag> getTags(){return Tags;}
 
 
     //empty taskList()
@@ -46,7 +47,7 @@ public class TaskList {
 
     //Might implement a trie tree later to make this more in depth.
     public Task getTask(String name, int view){
-        LinkedList<Task> T = new LinkedList<>();
+        List<Task> T = new LinkedList<>();
         switch(view){
             case 1:
                 T = this.Tasks;
@@ -68,8 +69,8 @@ public class TaskList {
     //I think that this function returns all the tasks according to the Tag that is input
 
     //
-    public static LinkedList<Task> getTasks(LinkedList<Task> list,Tag type){
-        LinkedList<Task> results=  new LinkedList<>();
+    public static List<Task> getTasks(List<Task> list,Tag type){
+        List<Task> results=  new LinkedList<>();
         for(int i =0; i<list.size();i++){
             if(list.get(i).associated_tag.name.equals(type.name)){
                 results.add(list.get(i));
@@ -85,8 +86,8 @@ public class TaskList {
     //TodoList.setTasks(TaskList.sort(TaskList.getTaskList());
 
     //i changed this to static so that it might work better with the other classes that we have made so far
-    public static LinkedList<Task> sortTasks(int setting, LinkedList<Task> list){
-        LinkedList<Task> result = new LinkedList<>();
+    public static List<Task> sortTasks(int setting, List<Task> list){
+        List<Task> result = new LinkedList<>();
         switch(setting){
             case 0://this is default
                 //default can be organized by dates
@@ -123,8 +124,8 @@ public class TaskList {
                         tags.add(list.get(i).associated_tag);
                     }
                 }
-                LinkedList<Tag> tempTagList = new LinkedList<>(tags);
-                LinkedList<Tag> tagList = new LinkedList<>();
+                List<Tag> tempTagList = new LinkedList<>(tags);
+                List<Tag> tagList = new LinkedList<>();
                 while(tempTagList.size() >0) {
                     String smallestString = tempTagList.get(0).getName();
                     Tag smallestTag = tempTagList.get(0);
@@ -144,7 +145,7 @@ public class TaskList {
                 //we need to sort the tasks by the Tag they are associated with
                 //I think that we also need to remember to NOT use the original Task LinkedList because we would need to delete the entries from the LinkedList
                 //and we are not allowed to do that.
-                LinkedList<Task> temp = list;
+                List<Task> temp = list;
                 for (int i = 0; i < tagList.size(); i++) {
                     boolean taskFound = true;
                     while (taskFound) {
@@ -184,7 +185,7 @@ public class TaskList {
     //0 will be for calendar view
     //1 will be for the todolist view
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static LinkedList<Task> filterTasksByDate(LinkedList<Task> input, LocalDate date, int setting){
+    public static List<Task> filterTasksByDate(List<Task> input, LocalDate date, int setting){
         if(setting == 0){
             for(int i =input.size()-1; i>0;i--){
                 if(input.get(i).due_date.getMonthValue() !=  date.getMonthValue()){
@@ -206,8 +207,8 @@ public class TaskList {
     }
 
     //method to return the set of active tags... NOTE input, must be filtered by date first
-    public static LinkedList<Tag> removeDuplicateTags(LinkedList<Task> input){
-        LinkedList<Tag> output = new LinkedList<>();
+    public static List<Tag> removeDuplicateTags(List<Task> input){
+        List<Tag> output = new LinkedList<>();
         for(int i = 0; i < input.size(); i++){
             //if the output list does not have task, tag, we add
             if(!output.contains(input.get(i).associated_tag)){
@@ -224,8 +225,8 @@ public class TaskList {
     //this function searches for a task and returns it
     //Might implement a trie tree later to make this more in depth, but otherwise its the same as the getTask function
     //in the future, what will happen is that it will return a LinkedList
-    public LinkedList<Task> searchTasks(String name, int view){
-        LinkedList<Task> results = new LinkedList<>();
+    public List<Task> searchTasks(String name, int view){
+        List<Task> results = new LinkedList<>();
         //search will return a set of maximum 20 results to display... this can be all subject to change
         //search feature is not implemented fully
         for(int i = 0; i < 20; i++)
@@ -239,8 +240,8 @@ public class TaskList {
 
     }
     //this will return a list of tags for the user to use in displaying
-    public static LinkedList<Tag> parseTags(LinkedList<Task> input){
-        LinkedList<Tag> output = new LinkedList<>();
+    public static List<Tag> parseTags(List<Task> input){
+        List<Tag> output = new LinkedList<>();
         Tag current = null;
         for(int i =0; i<input.size();i++){//we dont have to worry about a 0 input...all tasks have some sort of tag
             if(current == null || !current.equals(input.get(i).getTag())){

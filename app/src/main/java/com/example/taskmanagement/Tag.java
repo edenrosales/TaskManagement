@@ -79,8 +79,8 @@ public class Tag implements Parcelable {
     }
 
     //returns list of names of all tags in TaskList object, really used to display in spinner widget UI
-    public static LinkedList<String> getListOfTagNames(LinkedList<Tag> t){
-        LinkedList<String> result = new LinkedList<>();
+    public static List<String> getListOfTagNames(List<Tag> t){
+        List<String> result = new LinkedList<>();
         for(int i = 0; i < t.size(); i++){
             result.add(t.get(i).getName());
         }
@@ -100,7 +100,7 @@ public class Tag implements Parcelable {
 
 
     //finds name in the list of tags
-    public static Tag findName(LinkedList<Tag> tags, String name){
+    public static Tag findName(List<Tag> tags, String name){
         for(int i = 0; i < tags.size(); i++){
             if(tags.get(i).name.equals(name)){
                 Tag result = tags.get(i);

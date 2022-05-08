@@ -105,8 +105,8 @@ public class EditingTask extends AppCompatActivity {
 
 
         //grab list of tags for spinner
-        LinkedList<Tag> c_tags = MainActivity.taskList.getTags();
-        LinkedList<String> tagNames = Tag.getListOfTagNames(c_tags);
+        List<Tag> c_tags = MainActivity.taskList.getTags();
+        List<String> tagNames = Tag.getListOfTagNames(c_tags);
         ArrayAdapter<String> aDapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,tagNames);
         aDapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
         mySpinner.setAdapter(aDapter);
@@ -165,6 +165,7 @@ public class EditingTask extends AppCompatActivity {
                 if(!MainActivity.selected_task.getTag().getName().equals(MainActivity.selected_tag.getName())){
                     MainActivity.selected_task.setTag(MainActivity.selected_tag);
                 }
+                //this might be the problem
                 if(!selected_date.equals(date)){
                     MainActivity.selected_task.setDue(year, month, day);
                 }

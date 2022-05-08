@@ -6,17 +6,18 @@ import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.List;
 
 public class TodoList{
     LocalDate current_date;
-    LinkedList<Task> list = new LinkedList<>();
-    LinkedList<Tag> tags = new LinkedList<>();
+    List<Task> list = new LinkedList<>();
+    List<Tag> tags = new LinkedList<>();
 
     public TodoList(){
 
     }
 
-    public LinkedList<Task> getList(){ return list;}
+    public List<Task> getList(){ return list;}
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setDateToday(){
         current_date = LocalDate.now();

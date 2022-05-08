@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
-
     //@RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,7 +252,10 @@ public class MainActivity extends AppCompatActivity {
         taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
+                //sort here by date
+                taskList.Tasks = tasks;
               adapter.setTasks(tasks);
+
             }
         });
 
@@ -281,11 +283,10 @@ public class MainActivity extends AppCompatActivity {
         taskViewModel.getAllTags().observe(this, new Observer<List<Tag>>() {
             @Override
             public void onChanged(List<Tag> tags) {
+                //filter here
                 tagBoxAdapter1.setTags(tags);
             }
         });
-
-
 
 
         addTaskButton = (FloatingActionButton) findViewById(R.id.button);
