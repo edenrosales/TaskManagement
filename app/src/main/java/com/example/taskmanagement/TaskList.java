@@ -204,10 +204,10 @@ public class TaskList {
                 //if(!input.get(i).due_date.equals(date)){
                     input.remove(i);
                 }
-                else if(input.get(i).due_date.isAfter(date)){
+                //else if(input.get(i).due_date.isAfter(date)){
                     //if(!input.get(i).due_date.equals(date)){
-                    input.remove(i);
-                }
+                //    input.remove(i);
+                //}
             }
         }
         return input;

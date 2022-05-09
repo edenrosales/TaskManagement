@@ -22,31 +22,75 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed">
 
-        <Button
-            android:id="@+id/dayUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="248dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="My Tasks"
+            android:fontFamily="@font/fredokaone_regular"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/timeText"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/dayDown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            <TextView
+                android:id="@+id/timeText"
+                android:layout_width="198dp"
+                android:layout_height="37dp"
+                android:text="Monday, 9-2022"
+                android:textSize="19sp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:fontFamily="@font/fredokaone_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dayUp"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toEndOf="@+id/dayDown"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/dayUp"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:background="#00FFFFFF"
+                android:backgroundTint="@android:color/transparent"
+                android:scaleX="4"
+                android:scaleY="2"
+                app:cornerRadius="@dimen/default_gap"
+                app:icon="@drawable/ambilwarna_arrow_right"
+
+                app:iconTint="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.994"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/dayDown"
+                android:layout_width="50dp"
+                android:layout_height="32dp"
+                android:background="#00FFFFFF"
+                android:gravity="center"
+                android:rotation="90"
+                android:scaleX="2"
+                android:scaleY="4"
+                app:cornerRadius="@dimen/default_gap"
+                app:icon="@drawable/ambilwarna_arrow_down"
+                app:iconTint="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dayUp"
+                app:layout_constraintHorizontal_bias="0.086"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Const_tab_scroll"

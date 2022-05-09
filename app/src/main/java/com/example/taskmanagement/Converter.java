@@ -22,8 +22,8 @@ public class Converter {
 @TypeConverter
     public static String chae(Tag t){ return t == null ? null : t.getName(); }
 
-    @TypeConverter
-    public static int color(Tag t){return t == null ? null : t.getColor();}
+    //@TypeConverter
+   // public static int color(Tag t){return t == null ? null : t.getColor();}
 
     @TypeConverter
     public static LocalDate toDate(String dateString){
