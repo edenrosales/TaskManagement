@@ -79,7 +79,7 @@ public class AddTaskView extends AppCompatActivity{
         //etSelectDate = findViewById(R.id.due_date_text);
         java.util.Calendar c = java.util.Calendar.getInstance();
         year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
+        month = c.get(Calendar.MONTH) + 1;
         day = c.get(Calendar.DAY_OF_MONTH);
         tvSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,15 +87,12 @@ public class AddTaskView extends AppCompatActivity{
                 DatePickerDialog dialog = new DatePickerDialog(AddTaskView.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int selected_year, int selected_month, int selected_day) {
-                        selected_month = selected_month + 1;
-                        //was day instead of dayOfMonth, this might work
-                        day = selected_day;////
-                        month= selected_month;
-                        year = selected_year;
-                        String date = selected_day+"/"+selected_month+"/"+selected_year;
+                        String date = (selected_month+1) +"/"+selected_day+"/"+selected_year;
                         tvSelectDate.setText(date);
+                        day = selected_day;////
+                        year = selected_year;
                     }
-                },year, month, day);
+                },year, c.get(Calendar.MONTH), day);
                 dialog.show();
             }
         });
