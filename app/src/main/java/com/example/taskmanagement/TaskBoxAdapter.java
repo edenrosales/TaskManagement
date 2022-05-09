@@ -40,14 +40,14 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
         Drawable drawable = holder.taskColor.getDrawable();
         drawable.setColorFilter(currentTask.getTag().getColor(), PorterDuff.Mode.SCREEN);
 
-        /*
+
         if(currentTask.getCompleted()){
-            holder.taskColor.setBackgroundColor(Color.parseColor("#00FF00"));
+            holder.taskComplete.setBackgroundColor(Color.parseColor("#00FF00"));
         }
         else{
-            holder.taskColor.setBackgroundColor(Color.parseColor("#000000"));
+            holder.taskComplete.setBackgroundColor(Color.parseColor("#000000"));
         }
-         */
+
     }
 
 
@@ -64,6 +64,7 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
         private TextView textViewEnd;
         private TextView textViewDueDate;
         private ImageView taskColor;
+        private TextView taskComplete;
 
         public TaskHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +74,7 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
             textViewEnd = itemView.findViewById(R.id.task_list_end);
             textViewDueDate = itemView.findViewById(R.id.task_list_due_date_text);
             taskColor = itemView.findViewById(R.id.task_background);
+            taskComplete = itemView.findViewById(R.id.isCompleted);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
