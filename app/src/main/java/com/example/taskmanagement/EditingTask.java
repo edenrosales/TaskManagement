@@ -1,5 +1,6 @@
 package com.example.taskmanagement;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -133,12 +136,17 @@ public class EditingTask extends AppCompatActivity {
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog( EditingTask.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        month = month + 1;
-                        selected_date = day+"/"+month+"/"+year;
-                        tvSelectDate.setText(selected_date);
+                    public void onDateSet(DatePicker view, int selected_year, int selected_month, int selected_day) {
+                        selected_month = selected_month + 1;
+                        //was day instead of dayOfMonth, this might work
+                        day = selected_day;////
+                        month= selected_month;
+                        year = selected_year;
+                        String date = selected_day+"/"+selected_month+"/"+selected_year;
+                        tvSelectDate.setText(date);
+                        selected_date = selected_day+"/"+selected_month+"/"+selected_year;
                     }
-                }, year, month, day);
+                },year, month, day);
                 dialog.show();
             }
         });
@@ -152,6 +160,7 @@ public class EditingTask extends AppCompatActivity {
                 tag = mySpinner.toString();
                 start_time = Integer.valueOf(start_timeInput.getText().toString());
                 end_time = Integer.valueOf(end_timeInput.getText().toString());
+
                 String date = MainActivity.selected_task.getDateToString();
                 //showText(name);
                 //showText(String.valueOf(start_time));
@@ -175,9 +184,9 @@ public class EditingTask extends AppCompatActivity {
                     MainActivity.selected_task.setTag(MainActivity.selected_tag);
                 }
                 //this might be the problem
-//                if(!selected_date.equals(date)){
-//                    MainActivity.selected_task.setDue(year, month, day);
-//                }
+                if(selected_date !=null && !selected_date.equals(date)){
+                    MainActivity.selected_task.setDue(year, month, day);
+                }
 
                 Intent data = new Intent();
                 //set result code = -2
