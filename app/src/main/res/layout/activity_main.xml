@@ -22,6 +22,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed">
 
+        <Button
+            android:id="@+id/dayUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="248dp"
@@ -31,17 +37,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="34sp" />
 
-        <TextClock
-            android:id="@+id/textClock"
-            android:layout_width="140dp"
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/dayDown"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:format12Hour="EE, dd-MMM"
-            android:gravity="center|top"
-            android:padding="5dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="Button" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Const_tab_scroll"

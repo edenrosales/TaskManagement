@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -22,10 +25,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static int dayCounter =0;
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int VIEW_NOTE_REQUEST = 2;
     private FloatingActionButton addTaskButton;
     private FloatingActionButton tagButton;
+    private Button dayUp;
+    private Button dayDown;
+    private TextView timeClock;
     String name;
     String description;
     LocalDate today;
@@ -131,7 +138,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TodoList todo = new TodoList();
         //get date of calendars date
-        today = LocalDate.now();
+
+        today = LocalDate.now().plusDays(dayCounter);
+        timeClock =  findViewById(R.id.timeText);
+
+        timeClock.setText(today.getDayOfWeek() + ", " + today.getDayOfMonth() + "-"+today.getYear());
         //getting todoListTasks
         //todo.list = taskList.getTodoListTasks();
         //get the current date
@@ -224,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 taskList.setTasks(tasks);
                 taskList.TodoListTasks = taskList.getTaskList();
                 //we filter the tasks by date here
-                taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTodoListTasks(), LocalDate.now(), 1);
+                taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTodoListTasks(), today, 1);
               //adapter.setTasks(tasks);
                 adapter.setTasks(taskList.getTodoListTasks());
             }
@@ -299,7 +310,28 @@ public class MainActivity extends AppCompatActivity {
                 createTagResultLauncher.launch(intent);
             }
         });
+        dayUp = findViewById(R.id.dayUp);
+        dayUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dayCounter++;
+                System.out.println(dayCounter);
+                finish();
+                startActivity(getIntent());
+            }
+        });
+        dayDown = findViewById(R.id.dayDown);
+        dayDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dayCounter--;
+                System.out.println(dayCounter);
+                finish();
+                startActivity(getIntent());
+            }
+        });
     }
+
 
     int current_date;
     public void createTagView(){
