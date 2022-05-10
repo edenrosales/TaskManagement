@@ -54,6 +54,8 @@ public class AddTaskView extends AppCompatActivity{
     private EditText editTextDescription;
     private NumberPicker numberPickerStart;
     private NumberPicker numberPickerEnd;
+    private boolean notifIsChecked;
+
 
     //input variables
     //this is HARDCODED... once notification class is running, we can recieve user inputs for notifications
@@ -74,6 +76,7 @@ public class AddTaskView extends AppCompatActivity{
         editTextDescription = findViewById(R.id.description_input2);
         numberPickerStart = findViewById(R.id.number_picker_start);numberPickerStart.setMinValue(1); numberPickerStart.setMaxValue(12);
         numberPickerEnd = findViewById(R.id.number_picker_end); numberPickerEnd.setMinValue(1);  numberPickerEnd.setMaxValue(12);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(AddTaskView.this,"channel_id");
 
         /**This code is for Notifications**/
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -117,6 +120,33 @@ public class AddTaskView extends AppCompatActivity{
                     }
                 },year, month, day);
                 dialog.show();
+            }
+        });
+
+        //Toggle for Notifications
+        Switch aSwitch = findViewById(R.id.switch1);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    Log.d("XXXXXXX","IT WORKS");
+                    //When task added, Notification pops up....
+                    builder.setSmallIcon(R.drawable.ic_launcher_background);
+                    builder.setContentTitle(editTextName.getText().toString()); //header
+                    builder.setContentText(editTextDescription.getText().toString()); //descrip
+                    builder.setPriority(NotificationCompat.PRIORITY_HIGH); //heads-up
+                    builder.setAutoCancel(true);
+                    notifIsChecked = true;
+                    //builder.setSmallIcon(R.mipmap.ic_launcher); //incase UI goes ape shit...
+
+
+
+                }
+                //No Notification... this is default
+                else{
+                    Log.d("ZZZZZZZZ","IT IS OFF");
+                    notifIsChecked = false;
+                }
             }
         });
 
@@ -170,36 +200,18 @@ public class AddTaskView extends AppCompatActivity{
                 //openMainView();
                 //*/
 
-                        //When task added, Notification pops up....
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(AddTaskView.this,"channel_id");
-                        //builder.setSmallIcon(R.mipmap.ic_launcher);
-                        builder.setSmallIcon(R.drawable.ic_launcher_background);
-                        builder.setContentTitle("Testing Title"); //header
-                        builder.setContentText("This see"); //descrip
-                        builder.setPriority(NotificationCompat.PRIORITY_HIGH); //heads-up
-                        builder.setAutoCancel(true);
 
-                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AddTaskView.this);
-                        managerCompat.notify(1,builder.build());
+                //if Toggle is checked, show Notif when submit task
+                if(notifIsChecked) {
+                    NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AddTaskView.this);
+                    managerCompat.notify(1, builder.build());
+                }
 
 
                 saveNote();
             }
         });
 
-        //TODO:WORK ON THIS LATER
-        Switch aSwitch = findViewById(R.id.switch1);
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    Log.d("XXXXXXX","IT WORKS");
-                }
-                else{
-                    Log.d("ZZZZZZZZ","IT IS OFF");
-                }
-            }
-        });
 
     }
 
