@@ -34,13 +34,14 @@ public class TaskBoxAdapter extends RecyclerView.Adapter<TaskBoxAdapter.TaskHold
         Task currentTask = tasks.get(position);
         holder.textViewName.setText(currentTask.getName());
         holder.textViewDescription.setText(currentTask.getDescription());
-        holder.textViewStart.setText(String.valueOf(currentTask.getStart()));
-        holder.textViewEnd.setText(String.valueOf(currentTask.getEnd()));
+        holder.textViewStart.setText(String.valueOf(currentTask.getStart()) + ":00");
+        holder.textViewEnd.setText(String.valueOf(currentTask.getEnd()) + ":00");
         holder.textViewDueDate.setText(currentTask.getDateToString());
         Drawable drawable = holder.taskColor.getDrawable();
-        drawable.setColorFilter(currentTask.getTag().getColor(), PorterDuff.Mode.SCREEN);
-
-
+        if(MainActivity.colorValues.containsKey(currentTask.getTag().getName())){
+            drawable.setColorFilter(MainActivity.colorValues.get(currentTask.getTag().getName()), PorterDuff.Mode.OVERLAY);
+        }
+        //drawable.setColorFilter(currentTask.getTag().getColor(), PorterDuff.Mode.SCREEN);
         if(currentTask.getCompleted()){
             holder.taskComplete.setBackgroundColor(Color.parseColor("#00FF00"));
         }

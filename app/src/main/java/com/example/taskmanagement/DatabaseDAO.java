@@ -43,6 +43,6 @@ public interface DatabaseDAO {
     void updateTag(Tag tag);
 
     //gets tags listed in aplhabetical order
-    @Query("SELECT*FROM tag_table ORDER by NAME DESC")
+    @Query("SELECT*FROM tag_table ORDER by NAME ASC")
     LiveData<List<Tag>> getAllTags();
 }

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     //@RequiresApi(api = Build.VERSION_CODES.O)
     public static Task selected_task = new Task("","", selected_tag, 0,0,9,9,9999, false);
     /*************************/
-
+    public static HashMap<String, Integer> colorValues = new HashMap<>();
 
     public static final int ADD_TASK_REQUEST = 1;
     //public static ActivityResult ac;
@@ -268,6 +269,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Tag> tags) {
                 //filter here
+                //for not placing colors in hashmap, cannot get foreign keys to work ATM
+                for(int i = 0; i < tags.size(); i++){
+                    if(!colorValues.containsKey(tags.get(i).getName())){
+                        colorValues.put(tags.get(i).getName(), tags.get(i).getColor());
+                    }
+                }
                 tagBoxAdapter1.setTags(tags);
             }
         });
@@ -284,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //otherwise we return a list of tasks with the respective tag and display them in recycler view
                 else{
+                    taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTaskList(), LocalDate.now(), 1);
                     taskList.TodoListTasks  = TaskList.getTasks(taskList.getTodoListTasks(), tag);
                     //Reset original task adapter (adapter)
                     adapter.setTasks(taskList.getTodoListTasks());
