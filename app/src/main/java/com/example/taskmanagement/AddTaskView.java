@@ -5,21 +5,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+
 import android.widget.SpinnerAdapter;
+import android.widget.Switch;
+
 import android.widget.TextView;
 import android.widget.Toast;
 import java.time.LocalDate;
@@ -27,7 +38,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 
 public class AddTaskView extends AppCompatActivity{
     private static final String TAG = "AddTaskView";
@@ -54,7 +64,13 @@ public class AddTaskView extends AppCompatActivity{
     private EditText editTextDescription;
     private NumberPicker numberPickerStart;
     private NumberPicker numberPickerEnd;
+//<<<<<<< HEAD
     TaskViewModel taskViewModel;
+    private boolean notifIsChecked;
+//=======
+//    private boolean notifIsChecked;
+
+//>>>>>>> origin/Notifications
 
     //input variables
     //this is HARDCODED... once notification class is running, we can recieve user inputs for notifications
@@ -75,6 +91,21 @@ public class AddTaskView extends AppCompatActivity{
         editTextDescription = findViewById(R.id.description_input2);
         numberPickerStart = findViewById(R.id.number_picker_start);numberPickerStart.setMinValue(1); numberPickerStart.setMaxValue(12);
         numberPickerEnd = findViewById(R.id.number_picker_end); numberPickerEnd.setMinValue(1);  numberPickerEnd.setMaxValue(12);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(AddTaskView.this,"channel_id");
+
+        /**This code is for Notifications**/
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("channel_id","channel name",NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("channel description");
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+
+        /**************************************************************************/
+        //declare spinner for tag
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinner2);
+
         tvSelectDate = findViewById(R.id.due_date_text2);
         //etSelectDate = findViewById(R.id.due_date_text);
         java.util.Calendar c = java.util.Calendar.getInstance();
@@ -102,7 +133,7 @@ public class AddTaskView extends AppCompatActivity{
 
 
         //declare spinner
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner2);
+        //Spinner mySpinner = (Spinner) findViewById(R.id.spinner2);
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         taskViewModel.getAllTags().observe(this, new Observer<List<Tag>>() {
             @Override
@@ -126,6 +157,32 @@ public class AddTaskView extends AppCompatActivity{
         });
 
 
+        Switch aSwitch = findViewById(R.id.switch1);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    Log.d("XXXXXXX","IT WORKS");
+                    //When task added, Notification pops up....
+                    builder.setSmallIcon(R.drawable.ic_launcher_background);
+                    builder.setContentTitle(editTextName.getText().toString()); //header
+                    builder.setContentText(editTextDescription.getText().toString()); //descrip
+                    builder.setPriority(NotificationCompat.PRIORITY_HIGH); //heads-up
+                    builder.setAutoCancel(true);
+                    notifIsChecked = true;
+                    //builder.setSmallIcon(R.mipmap.ic_launcher); //incase UI goes ape shit...
+
+
+
+                }
+                //No Notification... this is default
+                else{
+                    Log.d("ZZZZZZZZ","IT IS OFF");
+                    notifIsChecked = false;
+                }
+            }
+        });
+
 
         //initializing button
         submitButton = (Button) findViewById(R.id.button2);
@@ -133,9 +190,62 @@ public class AddTaskView extends AppCompatActivity{
             //@RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                    saveNote();
+                //Tag current_tag = new Tag("",0);
+                //we call constructor here
+                /*name = nameInput.getText().toString();
+                //right now for testing lets do int 0-24 time... we can convert to float or double once we know display works
+                start_time = Integer.valueOf(start_timeInput.getText().toString());
+                end_time = Integer.valueOf(end_timeInput.getText().toString());
+                tag = mySpinner.toString();
+                for(int i = 0; i < MainActivity.taskList.getTags().size() ; i++){
+                    if(MainActivity.taskList.Tags.get(i).name.equals(tag)){
+                      //set current tag to constructor
+                        current_tag = MainActivity.taskList.Tags.get(i);
+                        //need to set tag to new created task
+                        /***************************************/
+                        //
+                //    }
+                //}
+                //int min = 50;
+                //int max = 100;
+                //Generate random int value from 50 to 100
+                //int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+                //for not it will be a random integer when adding tasks
+                // I WILL NEED TO IMPLEMENT A DRAG DROP MENU FOR CHOOSING AN EXISTING TAG
+                //Tag new_tag = new Tag(tag, random_int);
+                //due_date = due_dateInput.getText().toString();
+                //description = descriptionInput.getText().toString();
+                //show values to the user
+                //showText(name);
+                //showText(String.valueOf(start_time));
+                //showText(String.valueOf(end_time));
+                //showText(tag);
+                //showText(due_date);
+                //showText(description);
+                //call constructor
+                //if tag == null set tag to "all"/default tag
+                //new_task = new Task(name, description, current_tag, start_time, end_time, day, month + 1,year ,false);
+                //insert into database taskList call goes here
+                //MainActivity.taskList.Tasks.add(new_task);
+                //MainActivity.taskList.TodoListTasks.add(new_task);
+                //System.out.println("TASKLIST SIZE: " + MainActivity.taskList.Tasks.size());
+                //call to return to main Activity (To--DoList View)
+                //is_Task_added = true;
+                //openMainView();
+                //*/
+
+
+                //if Toggle is checked, show Notif when submit task
+                if(notifIsChecked) {
+                    NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AddTaskView.this);
+                    managerCompat.notify(1, builder.build());
+                }
+
+
+                saveNote();
             }
         });
+
 
     }
 

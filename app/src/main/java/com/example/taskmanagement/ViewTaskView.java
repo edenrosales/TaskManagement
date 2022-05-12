@@ -66,7 +66,6 @@ public class ViewTaskView extends AppCompatActivity {
         //grab tag from intent
         intent.getParcelableExtra(EXTRA_TAG);
 
-
         //edit button has no functionality at the moment
         //still need a design plan to go off from to edit parameters of tasks
         editButton = findViewById(R.id.editTaskButton);
