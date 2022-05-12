@@ -2,8 +2,15 @@ package com.example.taskmanagement;
 
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.room.Delete;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +28,6 @@ public class TaskList {
     List<Task> TodoListTasks = new LinkedList<>();
     List<Task> CalendarTasks = new LinkedList<>();
     List<Tag> Tags = new LinkedList<>();
-
 
     //view determines the LinkedList this function searches
     //1 is Tasks
@@ -211,6 +217,24 @@ public class TaskList {
             }
         }
         return input;
+    }
+
+    //method to delete all tasks with selected tag
+    public void deleteTasksWithTag(Tag tag){
+        MainActivity.taskViewModel.getAllTasks().observe((LifecycleOwner) this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(List<Task> tasks) {
+                for(int i = 0; i < tasks.size(); i++){
+                    if(tasks.get(i).getTag().getName().equals(tag.getName())){
+                        MainActivity.taskViewModel.deleteTask(tasks.get(i));
+                    }
+                    //if(MainActivity.taskList.getTaskList().get(i).getTag().getName().equals(tag.getName())) {
+                    //    MainActivity.taskViewModel.deleteTask(MainActivity.taskList.getTaskList().get(i));
+                    //}
+                }
+            }
+        });
+        //at this point all tasks with tag should be deleted
     }
 
     //method to return the set of active tags... NOTE input, must be filtered by date first

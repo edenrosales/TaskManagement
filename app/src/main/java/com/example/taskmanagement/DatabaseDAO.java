@@ -1,5 +1,7 @@
 package com.example.taskmanagement;
 
+import static java.nio.file.attribute.AclEntryPermission.DELETE;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -45,4 +47,5 @@ public interface DatabaseDAO {
     //gets tags listed in aplhabetical order
     @Query("SELECT*FROM tag_table ORDER by NAME ASC")
     LiveData<List<Tag>> getAllTags();
+
 }

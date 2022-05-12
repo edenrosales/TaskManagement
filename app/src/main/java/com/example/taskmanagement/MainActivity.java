@@ -1,9 +1,11 @@
 package com.example.taskmanagement;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,20 +15,26 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static int dayCounter =0;
+    public static int dayCounter = 0;
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int VIEW_NOTE_REQUEST = 2;
     private FloatingActionButton addTaskButton;
@@ -43,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
     //public static Task selected_task = new Task("", "", new Tag(""), 0, 0, 0, 0, 0, false);
     public static TaskList taskList = new TaskList();
     public static Tag selected_tag = new Tag("All", R.color.teal_700);
+    public static Tag tag_clicked = new Tag("All", R.color.teal_700);
     /*******************/
     //@RequiresApi(api = Build.VERSION_CODES.O)
-    public static Task selected_task = new Task("","", selected_tag, 0,0,9,9,9999, false);
+    public static Task selected_task = new Task("", "", selected_tag, 0, 0, 9, 9, 9999, false);
     /*************************/
     public static HashMap<String, Integer> colorValues = new HashMap<>();
 
@@ -53,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
     //public static ActivityResult ac;
 
     //Class that will communicate with the database for newly fetched data
-    private TaskViewModel taskViewModel;
+    static TaskViewModel taskViewModel;
     //ADD TASK ACTIVITY RESULT LAUNCHER
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult activityResult) {
-                    if(activityResult.getResultCode() == Activity.RESULT_OK){
+                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
                         Intent data = activityResult.getData();
                         String name = data.getStringExtra("EXTRA_NAME"); // im getting null
                         String description = data.getStringExtra("EXTRA_DESCRIPTION");
@@ -71,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         Task task = new Task(name, description, selected_tag, start_time, end_time, day, month, year, false);
                         taskViewModel.insertTask(task);
                         Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         Toast.makeText(MainActivity.this, "Task NOT Saved", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -83,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult activityResult) {
-                    if(activityResult.getResultCode() == Activity.RESULT_OK){
+                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
                         //if tag was created
                         Intent data = activityResult.getData();
                         String name = data.getStringExtra("EXTRA_NAME");
@@ -93,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         taskViewModel.insertTag(tag);
                         Toast.makeText(MainActivity.this, "Tag Saved", Toast.LENGTH_SHORT).show();
                         is_new_tag_added = true;
-                    }
-                    else{
+                    } else {
                         Toast.makeText(MainActivity.this, "Tag NOT Saved", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -104,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult activityResult) {
-                        //task will be deleted from the database
-                    switch(activityResult.getResultCode()){
+                    //task will be deleted from the database
+                    switch (activityResult.getResultCode()) {
                         case -1: //task was deleted
                             taskViewModel.deleteTask(selected_task);
                             Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_SHORT).show();
@@ -118,16 +125,6 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "No Function Called", Toast.LENGTH_SHORT).show();
                             break;
                     }
-                        /*
-                        if(activityResult.getResultCode() == -1){
-                        //if tag was created
-                        taskViewModel.deleteTask(selected_task);
-                        Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(MainActivity.this, "Task NOT Deleted", Toast.LENGTH_SHORT).show();
-                    }
-                    */
                 }
             });
 
@@ -139,85 +136,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TodoList todo = new TodoList();
         //get date of calendars date
-
         today = LocalDate.now().plusDays(dayCounter);
-        timeClock =  findViewById(R.id.timeText);
+        timeClock = findViewById(R.id.timeText);
 
-        timeClock.setText(today.getDayOfWeek() + ", " + today.getDayOfMonth() + "-"+today.getYear());
-        //getting todoListTasks
-        //todo.list = taskList.getTodoListTasks();
-        //get the current date
-        //today = LocalDate.now();
-        //10 tasks will be added here
-        //taskList.Tags.add(new Tag("Tag 1", 42000));
-        //taskList.Tags.add(new Tag("Tag 2", 32000));
-
-
-        //our todoList Tasks will be filtered by date first, the last parameter, 1, is todoList View
-        //taskList.TodoListTasks = filterTasksByDate(taskList.Tasks, today, 1);
-        //filtering todo list tasks by date
-        //todo.list = filterTasksByDate(todo.list, today, 1);
-        //Need to display current input tags
-        //TabLayout t = (TabLayout) findViewById(R.id.tag_tab_layout);
-            //Find the all relevant tags that are represented all items in todoList...Only need one tag for display, since multiple tasks can share a tag
-        //LinkedList<Tag> current_tags = parseTags(taskList.TodoListTasks);
-            //for each item in current tags, make a new tab in tab layout
-        //for(int i = 0; i < taskList.Tags.size(); i++){
-        //    t.addTab(t.newTab().setText(taskList.Tags.get(i).name));
-        //}
-
-        //Tab bar adapter, this will give us the opportunity to access each tab item's function
-        //ArrayAdapter tabAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, todo.list);
-        //t.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-        //    @Override
-        /*    public void onTabSelected(TabLayout.Tab tab) {
-                tab.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //System.out.println(R.id.all_tags);
-                        //System.out.println(tab.getId());
-                        //System.out.println(tab.getText().toString());
-                        if(tab.getText().toString().equals("All")){
-                            //this is all, we refresh main activity// it will go back to start...database isn't running so all will work properly once database is working
-                            TaskBoxAdapter specialAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, todo.list);
-                            listview.setAdapter(specialAdapter);
-                            accessList(listview);
-                        }
-                        //for a specific tag
-                        else{
-                            ListView special_list = (ListView) findViewById(R.id.listView);
-                            String name = tab.getText().toString();
-                            //System.out.println(name);
-                            Tag tag = Tag.findName(taskList.getTags(), name);
-                            LinkedList<Task> special_tasks = getTasks(todo.getList(), tag);
-                            TaskBoxAdapter specialAdapter = new TaskBoxAdapter(MainActivity.this, R.layout.each_task, special_tasks);
-                            listview.setAdapter(specialAdapter);
-                            accessList(listview);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-*/
-
-
-
-
-        //TabLayout t = (TabLayout) findViewById(R.id.tag_tab_layout);
-        //TagBoxAdapter tagBoxAdapter = new TagBoxAdapter();
-        //ArrayAdapter tabAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1);
+        timeClock.setText(today.getDayOfWeek() + ", " + today.getDayOfMonth() + "-" + today.getYear());
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
         //RECYCLER VIEW FOR TASKS
@@ -237,11 +159,10 @@ public class MainActivity extends AppCompatActivity {
                 taskList.TodoListTasks = taskList.getTaskList();
                 //we filter the tasks by date here
                 taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTodoListTasks(), today, 1);
-              //adapter.setTasks(tasks);
+                //adapter.setTasks(tasks);
                 adapter.setTasks(taskList.getTodoListTasks());
             }
         });
-
 
 
         //CODE BLOCK FOR WHEN AN TASK IS CLICKED
@@ -268,37 +189,72 @@ public class MainActivity extends AppCompatActivity {
         taskViewModel.getAllTags().observe(this, new Observer<List<Tag>>() {
             @Override
             public void onChanged(List<Tag> tags) {
-                //filter here
-                //for not placing colors in hashmap, cannot get foreign keys to work ATM
-                for(int i = 0; i < tags.size(); i++){
-                    if(!colorValues.containsKey(tags.get(i).getName())){
+                for (int i = 0; i < tags.size(); i++) {
+                    if (!colorValues.containsKey(tags.get(i).getName())) {
                         colorValues.put(tags.get(i).getName(), tags.get(i).getColor());
                     }
                 }
+                //tagBoxAdapter1.setTags(tags);
+
+
+                //if tag is swiped up
+                ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.UP) {
+                    @Override
+                    public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                        int position = viewHolder.getAdapterPosition();
+                        int dragFlags = 0; // for draggine, we are not dragging any tags here
+                        int swipeFlags = createSwipeFlags(position);
+                        return makeMovementFlags(dragFlags, swipeFlags);
+                    }
+
+                    private int createSwipeFlags(int position) {
+                        return position == 0 ? 0 : ItemTouchHelper.UP;
+                    }
+
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        selected_tag = tags.get(viewHolder.getAdapterPosition());
+                        taskViewModel.deleteTag(selected_tag);
+                        tags.remove(viewHolder.getAdapterPosition());
+                        //if we are on the tag that is deleted, we revert to the all tasks view
+                        if (tag_clicked.equals(selected_tag)) {
+                            taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTaskList(), LocalDate.now(), 1);
+                            adapter.setTasks(taskList.getTodoListTasks());
+                        }
+                        tagBoxAdapter1.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
+                    }
+                };
+                new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(myList);
                 tagBoxAdapter1.setTags(tags);
+
             }
         });
-
         //CODE BLOCK FOR WHEN AN TAG IS CLICKED
         tagBoxAdapter1.setOnItemClickListener(new TagBoxAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Tag tag) {
                 //if the tag selected is the first tag in the list (All)
-                if(tag.getName().equals("All")){
+                tag_clicked = tag;
+                if (tag.getName().equals("All")) {
                     //do not sort, just display all todo list tasks
                     taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTaskList(), LocalDate.now(), 1);
                     adapter.setTasks(taskList.getTodoListTasks());
                 }
                 //otherwise we return a list of tasks with the respective tag and display them in recycler view
-                else{
+                else {
                     taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTaskList(), LocalDate.now(), 1);
-                    taskList.TodoListTasks  = TaskList.getTasks(taskList.getTodoListTasks(), tag);
+                    taskList.TodoListTasks = TaskList.getTasks(taskList.getTodoListTasks(), tag);
                     //Reset original task adapter (adapter)
                     adapter.setTasks(taskList.getTodoListTasks());
                 }
             }
         });
-
 
         addTaskButton = (FloatingActionButton) findViewById(R.id.button);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -326,6 +282,9 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(dayCounter);
                 finish();
                 startActivity(getIntent());
+                //in case we delete a tag in the future, update for any date
+                adapter.notifyDataSetChanged();
+                setTaskRecyclerView(adapter);
             }
         });
         dayDown = findViewById(R.id.dayDown);
@@ -335,6 +294,8 @@ public class MainActivity extends AppCompatActivity {
                 dayCounter--;
                 System.out.println(dayCounter);
                 finish();
+                adapter.notifyDataSetChanged();
+                setTaskRecyclerView(adapter);
                 startActivity(getIntent());
             }
         });
@@ -342,9 +303,31 @@ public class MainActivity extends AppCompatActivity {
 
 
     int current_date;
-    public void createTagView(){
+
+    public void createTagView() {
         Intent intent = new Intent(MainActivity.this, CreateTag.class);
         createTagResultLauncher.launch(intent);
+    }
+
+    public void setTaskRecyclerView(TaskBoxAdapter adapter){
+        taskViewModel.getAllTasks().observe(this,new Observer<List<Task>>() {
+            @Override
+            public void onChanged (List <Task> tasks) {
+                //sort here by date
+                //taskList.Tasks = tasks;
+                for(int i = 0; i < tasks.size(); i++) {
+                    if (tasks.get(i).getTag().getName().equals(selected_tag.getName())) {
+                        MainActivity.taskViewModel.deleteTask(tasks.get(i));
+                    }
+                }
+                taskList.setTasks(tasks);
+                taskList.TodoListTasks = taskList.getTaskList();
+                //we filter the tasks by date here
+                taskList.TodoListTasks = TaskList.filterTasksByDate(taskList.getTodoListTasks(), today, 1);
+                //adapter.setTasks(tasks);
+                adapter.setTasks(taskList.getTodoListTasks());
+            }
+        });
     }
 }
 

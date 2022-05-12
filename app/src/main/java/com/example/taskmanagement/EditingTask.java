@@ -1,9 +1,12 @@
 package com.example.taskmanagement;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -53,15 +56,6 @@ public class EditingTask extends AppCompatActivity {
         setContentView(R.layout.activity_editing_task);
         //New code with live database:
         Intent intent = getIntent();
-        //grab task from intent
-        //Task selected_task = intent.getParcelableExtra(EXTRA_TASK);
-        //grab tag from intent
-        //Tag selectd_tag = intent.getParcelableExtra(EXTRA_TAG);
-
-
-
-
-
         //initalizing buttons
         toggleCompleted = findViewById(R.id.completeTask);
         submit = findViewById(R.id.submit_edit);
@@ -96,6 +90,12 @@ public class EditingTask extends AppCompatActivity {
             @Override
             public void onChanged(List<Tag> tags) {
                 List<String> names = Tag.getListOfTagNamesLiveData(tags);
+                for(int i = 0; i < names.size(); i++){
+                    if(MainActivity.selected_tag.equals(names.get(i))){
+                        names.add(0, names.get(i));
+                        names.remove(names.get(i + 1));
+                    }
+                }
                 ArrayAdapter<String> aDapter = new ArrayAdapter<String>(EditingTask.this, android.R.layout.simple_list_item_1, names);
                 aDapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
                 mySpinner.setAdapter(aDapter);

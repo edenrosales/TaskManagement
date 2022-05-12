@@ -46,9 +46,11 @@ public abstract class Database extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            databaseDAO.insertTask(new Task("My First Task", "Description", new Tag("", R.color.teal_700), 1, 2, 9, 9, 9999, false));
+            Tag all_tag = new Tag("All", R.color.teal_700);
+            databaseDAO.insertTag(all_tag);
+            databaseDAO.insertTask(new Task("My First Task", "Description", all_tag, 1, 2, 9, 9, 9999, false));
             //default tag will be all
-            databaseDAO.insertTag(new Tag("All", R.color.teal_700));
+            //databaseDAO.insertTag(new Tag("All", R.color.teal_700));
             return null;
         }
     }

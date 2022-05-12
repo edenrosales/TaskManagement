@@ -103,11 +103,11 @@ public class TaskRepository {
     }
 
     public void updateTag(Tag tag){
-        new TaskRepository.InsertTagAsyncTask(databaseDAO).execute(tag);
+        new TaskRepository.UpdateTagAsyncTask(databaseDAO).execute(tag);
     }
 
     public void deleteTag(Tag tag){
-        new TaskRepository.InsertTagAsyncTask(databaseDAO).execute(tag);
+        new TaskRepository.DeleteTagAsyncTask(databaseDAO).execute(tag);
     }
 
     //we do not have delete all tags, we dont need it because the first tag is all

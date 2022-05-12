@@ -85,5 +85,16 @@ public class TagBoxAdapter extends RecyclerView.Adapter<TagBoxAdapter.TagHolder>
         return tags;
     }
 
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        public ViewGroup mContainer;
+
+        public MyViewHolder(View v){
+            super(v);
+            v.setFocusable(false);
+            v.setEnabled(false);
+            mContainer = (ViewGroup) v.findViewById(R.id.tag_box);
+        }
+    }
+
 
 }
