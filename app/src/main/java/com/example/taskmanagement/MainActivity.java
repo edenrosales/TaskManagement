@@ -212,12 +212,6 @@ public class MainActivity extends AppCompatActivity {
 
 */
 
-
-
-
-        //TabLayout t = (TabLayout) findViewById(R.id.tag_tab_layout);
-        //TagBoxAdapter tagBoxAdapter = new TagBoxAdapter();
-        //ArrayAdapter tabAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1);
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
         //RECYCLER VIEW FOR TASKS
