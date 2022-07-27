@@ -40,8 +40,8 @@
 
     <TextView
         android:id="@+id/task_list_description"
-        android:layout_width="173dp"
-        android:layout_height="88dp"
+        android:layout_width="153dp"
+        android:layout_height="91dp"
         android:layout_marginStart="4dp"
         android:fontFamily="@font/fredokaone_regular"
         android:maxLength="100"
@@ -99,15 +99,15 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/task_list_starts_at"
         app:layout_constraintEnd_toStartOf="@+id/task_list_start"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.981"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_list_due_date"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/task_list_starts_at"
-        android:layout_width="69dp"
-        android:layout_height="49dp"
+        android:layout_width="89dp"
+        android:layout_height="46dp"
         android:fontFamily="@font/fredokaone_regular"
         android:gravity="center"
         android:maxLines="1"
@@ -115,7 +115,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/task_list_end"
-        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintHorizontal_bias="0.388"
         app:layout_constraintStart_toEndOf="@+id/task_list_description"
         app:layout_constraintTop_toBottomOf="@+id/task_list_ends_at" />
 

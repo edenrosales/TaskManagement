@@ -57,6 +57,17 @@ public class Task implements Parcelable {//will add a description variable later
         this.start_time = start_time; //in minutes from 0:00
     }
 
+    Task(String name, String description, Tag associated_tag){
+        this.name = name;
+        this.description=description;
+        this.associated_tag=associated_tag;
+        this.start_time = 0;
+        this.end_time = 0;
+        this.due_date = null;
+        this.notify_me = false;
+    }
+
+
     protected Task(Parcel in) {
         id = in.readInt();
         description = in.readString();
